@@ -1,0 +1,1 @@
+{"max-time":"{{max_time|date:"c"}}", "posts":[{% for post in posts %}{%spaceless%}{% include 'grumblr/post2.json' %}{%endspaceless%}{% if not forloop.last %}, {% endif %}{% endfor %}]}

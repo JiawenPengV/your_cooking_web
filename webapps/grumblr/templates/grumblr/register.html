@@ -1,0 +1,79 @@
+{% extends "grumblr/base.html" %}
+{% load static %}
+{% block title %}Grumblr Register{% endblock %}
+{% block css %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/signin.css' %}">
+{% endblock %}
+{% block description %}<meta name="description" content="Sign up">{% endblock %}
+ {% block navbar %}
+		<nav class="navbar navbar-inverse navbar-fixed-top" name="{{ user.username }}">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target = "#navbar" aria-expanded="false" aria-controls="navbar">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" href="{% url 'home' %}">Grumblr</a>
+		</div>
+
+		<div id="navbar" class="collapse navbar-collapse">
+			<form class="navbar-form navbar-right">
+				
+				<a href="{% url 'login' %}" class='btn btn-default'>Sign in</a>
+			</form>
+
+		</div><!--/.nav-collapse -->
+	</div>
+</nav>
+
+        {% endblock %}
+{% block content %}
+
+
+<div class="container">
+	<div class="form">
+		{% for error in form.non_field_errors %}
+		<p>
+		{{ error }}
+		</p>
+		{% endfor %}
+
+		<form method="post" class="form-signin" action="{% url 'register' %}">
+
+			<div class="row">
+				<div class="col-xs-6 col-lg-6">
+					
+					<input class="form-control" placeholder="First Name" name="first_name" required autofocus>
+				</div>
+				<div class="col-xs-6 col-lg-6">
+					
+					<input class="form-control" placeholder="Last Name" name="last_name" required >
+				</div>
+			</div>
+			<p></p>
+			<input class="form-control" placeholder="Username" name="username" required>
+			<p></p>
+			<input type="email" class="form-control" placeholder="Email" name="email" required >
+			<p></p>
+			<input type="password" class="form-control" placeholder="Password" name="password" required >
+			
+			<input type="password" class="form-control" placeholder="Confirm Password" name="confirm_password" required >
+
+			<div >
+				<div >
+					<input class="btn btn-lg btn-primary btn-block" type="submit" value="Sign up">
+				</div>
+				
+			</div>
+
+			{% csrf_token %}
+		</form><!-- form -->
+
+
+
+	</div><!-- row -->
+</div> <!-- container -->
+
+{% endblock %}

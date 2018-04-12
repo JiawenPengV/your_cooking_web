@@ -1,0 +1,17 @@
+{% extends "grumblr/base.html" %}
+{% load static %}
+{% block title %}ERROR PAGE{% endblock %}
+{% block css %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/signin.css' %}">
+{% endblock %}
+{% block description %}<meta name="description" content="Email confirmation">{% endblock %}
+{% block navbar %}
+
+
+{% endblock %}
+{% block content %}
+<div class="container">
+	<p>Token is invalid.</p>
+</div>
+
+{% endblock %}

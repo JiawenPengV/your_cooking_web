@@ -1,0 +1,107 @@
+{% extends "grumblr/base.html" %}
+{% load static %}
+{% block title %}Grumblr Edit Profile{% endblock %}
+{% block css %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/signin.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/profile.css' %}">
+{% endblock %}
+{% block description %}<meta name="description" content="Edit Profile">{% endblock %}
+{% block content %}
+<nav class="navbar navbar-inverse navbar-fixed-top" name="{{ request.user.username }}">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target = "#navbar" aria-expanded="false" aria-controls="navbar">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" href="{% url 'home' %}">Grumblr</a>
+		</div>
+
+		<div id="navbar" class="collapse navbar-collapse">
+			<form class="navbar-form navbar-right">
+				{% if request.user.profile.picture.name %}
+					<img src="{% url 'photo' request.user.username %}"  class="img-circle crop" width="25" height="25">
+					{% else %}
+					<img src="{% static 'images/img.jpg' %}" width="25" height="25"  class="img-circle crop">
+					{% endif %}
+				
+				<a id="username" href="{% url 'profile' request.user.username %}">{{ request.user.first_name }} {{ request.user.last_name }}</a>
+				<a href="{% url 'logout' %}" class='btn btn-default'>Sign out</a>
+			</form>
+
+		</div><!--/.nav-collapse -->
+	</div>
+</nav>
+<div class="container">
+	<div class="">
+		{% for error in form.non_field_errors %}
+		<p >
+		{{ error }}
+		</p>
+		{% endfor %}
+
+		<form enctype="multipart/form-data" method="post" class="col-sm-6 form-signin" action="{% url 'edit_profile' %}">
+			{% if profile.picture.name %}
+					<img src="{% url 'photo' user.username %}" id="profile_picture"  class="img-circle crop">
+					{% else %}
+					<img src="{% static 'images/img.jpg' %}" id="profile_picture"  class="img-circle crop">
+					{% endif %}
+
+
+			<div class="row">
+				<div class="col-xs-12 col-lg-12">
+					<label for="inputFirstName">FirstName</label>
+					<input id="inputFirstName" class="form-control"  name="first_name" value="{{request.user.first_name}}" required autofocus>
+				</div>
+			</div>
+            <div class="row">
+				<div class="col-xs-12 col-lg-12">
+					<label for="inputLastName">LastName</label>
+					<input  class="form-control" placeholder="Last Name" name="last_name" value="{{request.user.last_name}}" required >
+				</div>
+            </div>
+            <div class="row">
+				<div class="col-xs-12 col-lg-12">
+					<label for="inputAge">Age</label>
+					<input class="form-control" placeholder="Age" name="age" value="{{profile.age}}" required >
+				</div>
+			</div>
+            <div class="row">
+				<div class="col-xs-12 col-lg-12">
+					<label for="inputBio">About</label>
+					<textarea class="form-control" placeholder="Short Bio" name="bio">{{profile.bio}}</textarea>
+				</div>
+			</div>
+            <div class="row">
+				<div class="col-xs-12 col-lg-12">
+					<label for="picture">Profile Picture</label>
+					<input id="picture"  class="form-control" placeholder="Short Bio" name="picture" type="file"></input>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-xs-12 col-lg-12">
+					<input class="btn btn-lg btn-primary btn-block" type="submit" value="Submit">
+				</div>
+			</div>
+			{% csrf_token %}
+		</form>
+
+        <form method="post" class="col-sm-6 form-signin" action="{% url 'change_password' %}">
+			<input  type="password" class="form-control" placeholder="New Password" name="password" required >
+            <input  type="password" class="form-control" placeholder="Re-enter Password" name="confirm_password" required >
+			<div class="col-xs-12 col-lg-12">
+                <input class="btn btn-lg btn-primary btn-block" type="submit" value="Change Password">
+            </div>
+			{% csrf_token %}
+        </form>
+
+
+	</div><!-- row -->
+</div> <!-- container -->
+
+
+
+{% endblock %}
