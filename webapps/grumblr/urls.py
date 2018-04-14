@@ -63,4 +63,7 @@ urlpatterns = [
     url(r'^get_search_changes/(?P<username>.+)/(?P<time>.+)$', grumblr.views.get_changes_profile),
     url(r'^get-changes-profile/(?P<username>.+)/?$', grumblr.views.get_changes_profile),
 
+    url(r'^vote/(?P<post_id>.+)/?$', grumblr.views.vote, name='vote'),
+    url(r'^devote/(?P<post_id>.+)/?$', grumblr.views.devote, name='devote'),
+
 ]

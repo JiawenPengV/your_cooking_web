@@ -71,7 +71,7 @@
                         <img class='crop' src={% url 'photo' post.user.username %} id='profile_picture'>{% else %}
                         <img src={% static 'images/img.jpg' %} id='profile_picture'>{% endif %}</span><span><span><a
                             href={% url 'profile' post.user.username %}>{{ post.user.first_name }}</a></span><span
-                            class='time'>{{ post.last_changed |date:"Y-m-d H:i" }}</span><div
+                            class='time'>{{ post.time |date:"Y-m-d H:i" }}</span><div
                             class='post_content'>{{ post.content }}</div></span>
 
 
@@ -80,12 +80,18 @@
                             <form method='post' action={% url 'delete' post.id %}>
                             <span> <input type='submit' class='btn btn-xs btn-danger delete-btn'
                                           value='Delete'></span>{% endifequal %}{% csrf_token %}</form>
+
                         {% if post in followees %}
 					<a class="btn btn-warning btn-unfollow" href="{% url 'unfollow_from_home' post.id %}">unfaviriot</a>
 					{% else %}
 					<a class="btn btn-success btn-follow" href="{% url 'follow' post.id %}">Favoriate</a>
 					{% endif %}
 
+                    {% if not post in voting %}
+                    <a class="btn btn-warning btn-unfollow" href="{% url 'vote' post.id %}">{{ post.vote }}</a>
+                    {% else %}
+					<a class="btn btn-success btn-follow" href="{% url 'devote' post.id %}">{{ post.vote }}</a>
+					{% endif %}
                     </div>
 
                 {% endfor %}

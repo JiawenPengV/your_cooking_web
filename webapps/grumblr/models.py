@@ -12,9 +12,9 @@ class Post(models.Model):
     user = models.ForeignKey(User)
     content = models.CharField(max_length=42)
     
-    time = models.DateTimeField(auto_now_add=True)
+    time = models.DateTimeField(auto_created=True)
     last_changed = models.DateTimeField(auto_now=True)
-   
+    vote = models.IntegerField(default=0)
 
     def __unicode__(self):
         return self.post
@@ -52,14 +52,15 @@ class Post(models.Model):
     def get_max_time():
         return Post.objects.all().aggregate(Max('last_changed'))['last_changed__max'] or "1970-01-01T00:00+00:00"
 
-   
+
 
 class Profile(models.Model):
     user = models.OneToOneField(User, primary_key=True)
     age = models.PositiveSmallIntegerField()
     bio = models.CharField(max_length=420, default="", blank=True)
     picture = models.ImageField(upload_to="profile_pictures", blank=True)
-    followees = models.ManyToManyField(Post,related_name='Post+',
+    followees = models.ManyToManyField(Post,related_name='Post+',)
+    voting = models.ManyToManyField(Post, related_name='Posting+',
     )
 
     @staticmethod

@@ -19,6 +19,45 @@ from django.db import transaction
 from django.contrib.auth.tokens import default_token_generator
 from django.core.urlresolvers import reverse
 
+
+@transaction.atomic
+def vote(request, post_id):
+    post = Post.objects.get(id=post_id)
+    post.vote = post.vote + 1
+    post.save()
+
+    profile = Profile.objects.get(user = request.user)
+    profile.voting.add(post)
+    profile.save()
+
+    voting=profile.voting.all()
+    followees = profile.followees.all()
+    posts = Post.objects.all().order_by("-time")
+    context = {'voting': voting, 'followees' : followees}
+    return render(request, 'grumblr/global_stream.html',
+                  {'request_user_profile': profile, 'posts': posts, 'user': request.user,
+                   'followees': followees,'voting': voting})
+
+
+@transaction.atomic
+def devote(request, post_id):
+    post = Post.objects.get(id=post_id)
+    post.vote = post.vote - 1
+    post.save()
+
+    profile = Profile.objects.get(user = request.user)
+    profile.voting.remove(post)
+    profile.save()
+
+    voting=profile.voting.all()
+    followees = profile.followees.all()
+    context = {'voting': voting, 'followees': followees}
+    return redirect('/')
+
+
+
+
+
 @transaction.atomic
 def search(request):
     context = {}
@@ -175,8 +214,9 @@ def home(request):
 
 
     followees = profile.followees.all()
+    voting= profile.voting.all()
     request_user_profile = Profile.objects.get(user=request.user)
-    return render(request, 'grumblr/global_stream.html', {'request_user_profile':request_user_profile,'posts' : posts, 'user' : request.user, 'followees' : followees})
+    return render(request, 'grumblr/global_stream.html', {'request_user_profile':request_user_profile,'posts' : posts, 'user' : request.user, 'followees' : followees, 'voting' : voting})
 
 
 @login_required
