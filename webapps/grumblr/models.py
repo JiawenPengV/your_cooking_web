@@ -12,7 +12,7 @@ class Post(models.Model):
     user = models.ForeignKey(User)
     content = models.CharField(max_length=42)
     
-    time = models.DateTimeField(auto_created=True)
+    time = models.DateTimeField(auto_now_add=True)
     last_changed = models.DateTimeField(auto_now=True)
     vote = models.IntegerField(default=0)
 

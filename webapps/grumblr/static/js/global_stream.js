@@ -76,7 +76,7 @@ function updateComments(id) {
 $(document).ready(function () {
 
   $("#post-button").click(addPost);
-  // populateList();
+  populateList();
   $("#post-field").focus();
 
   // Periodically refresh to-do list every 5 seconds

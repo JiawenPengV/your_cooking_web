@@ -68,6 +68,12 @@
 					{% else %}
 					<a class="btn btn-success btn-follow" href="{% url 'follow' user.username %}">Follow</a>
 					{% endif %}
+
+                    {% if not post in voting %}
+                    <a class="btn btn-warning btn-unfollow" href="{% url 'vote' post.id %}">{{ post.vote }}</a>
+                    {% else %}
+					<a class="btn btn-success btn-follow" href="{% url 'devote' post.id %}">{{ post.vote }}</a>
+					{% endif %}
 					
 					</div>
 

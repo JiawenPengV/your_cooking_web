@@ -17,49 +17,37 @@
       <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/grumblr/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-39">
-              <caret line="38" column="58" lean-forward="false" selection-start-line="38" selection-start-column="58" selection-end-line="38" selection-end-column="58" />
+            <state relative-caret-position="218">
+              <caret line="137" column="13" lean-forward="false" selection-start-line="137" selection-start-column="13" selection-end-line="137" selection-end-column="13" />
               <folding>
-                <element signature="e#1773#2564#0" expanded="false" />
-                <element signature="e#2648#2960#0" expanded="false" />
-                <element signature="e#3062#3435#0" expanded="false" />
-                <element signature="e#3515#4290#0" expanded="false" />
-                <element signature="e#4437#4794#0" expanded="false" />
-                <element signature="e#4906#5313#0" expanded="false" />
-                <element signature="e#5416#5839#0" expanded="false" />
-                <element signature="e#6607#7364#0" expanded="false" />
-                <element signature="e#7411#8000#0" expanded="false" />
-                <element signature="e#8055#8719#0" expanded="false" />
+                <element signature="e#3138#3929#0" expanded="false" />
+                <element signature="e#4427#4800#0" expanded="false" />
+                <element signature="e#4880#5655#0" expanded="false" />
+                <element signature="e#5802#6159#0" expanded="false" />
+                <element signature="e#6271#6678#0" expanded="false" />
+                <element signature="e#6781#7204#0" expanded="false" />
+                <element signature="e#8775#9364#0" expanded="false" />
+                <element signature="e#9419#10083#0" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="contextlib.py" pinned="false" current-in-tab="false">
-        <entry file="file:///Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/contextlib.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="147">
-              <caret line="51" column="0" lean-forward="false" selection-start-line="51" selection-start-column="0" selection-end-line="51" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="global_stream.html" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/grumblr/templates/grumblr/global_stream.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="231">
-              <caret line="89" column="30" lean-forward="false" selection-start-line="89" selection-start-column="30" selection-end-line="89" selection-end-column="30" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="models.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="models.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/grumblr/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="264">
-              <caret line="64" column="0" lean-forward="true" selection-start-line="64" selection-start-column="0" selection-end-line="64" selection-end-column="0" />
+            <state relative-caret-position="243">
+              <caret line="15" column="54" lean-forward="false" selection-start-line="15" selection-start-column="54" selection-end-line="15" selection-end-column="54" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="global_stream.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/grumblr/templates/grumblr/global_stream.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="240">
+              <caret line="116" column="0" lean-forward="true" selection-start-line="116" selection-start-column="0" selection-end-line="116" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -68,8 +56,28 @@
       <file leaf-file-name="profile.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/grumblr/templates/grumblr/profile.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="280">
-              <caret line="11" column="0" lean-forward="true" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
+            <state relative-caret-position="225">
+              <caret line="72" column="78" lean-forward="false" selection-start-line="72" selection-start-column="78" selection-end-line="72" selection-end-column="78" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="global_stream.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/grumblr/static/js/global_stream.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="186">
+              <caret line="79" column="12" lean-forward="false" selection-start-line="79" selection-start-column="12" selection-end-line="79" selection-end-column="12" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="follower_stream.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/grumblr/templates/grumblr/follower_stream.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="244">
+              <caret line="47" column="44" lean-forward="true" selection-start-line="47" selection-start-column="44" selection-end-line="47" selection-end-column="44" />
               <folding />
             </state>
           </provider>
@@ -78,8 +86,8 @@
       <file leaf-file-name="urls.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/grumblr/urls.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="272">
-              <caret line="66" column="69" lean-forward="false" selection-start-line="66" selection-start-column="69" selection-end-line="66" selection-end-column="69" />
+            <state relative-caret-position="363">
+              <caret line="69" column="115" lean-forward="false" selection-start-line="69" selection-start-column="115" selection-end-line="69" selection-end-column="115" />
               <folding>
                 <element signature="e#642#683#0" expanded="true" />
               </folding>
@@ -115,10 +123,11 @@
       <find>follow</find>
       <find>followees</find>
       <find>redirect</find>
-      <find>follower</find>
       <find>unfollow</find>
       <find>global</find>
       <find>home</find>
+      <find>follower</find>
+      <find>new</find>
     </findStrings>
   </component>
   <component name="IdeDocumentHistory">
@@ -133,16 +142,16 @@
         <option value="$PROJECT_DIR$/grumblr/templates/grumblr/post.json" />
         <option value="$PROJECT_DIR$/grumblr/forms.py" />
         <option value="$PROJECT_DIR$/webapps/settings.py" />
-        <option value="$PROJECT_DIR$/grumblr/static/js/global_stream.js" />
         <option value="$PROJECT_DIR$/grumblr/templates/grumblr/search_result.html" />
         <option value="$PROJECT_DIR$/grumblr/static/js/search_result.js" />
-        <option value="$PROJECT_DIR$/grumblr/templates/grumblr/follower_stream.html" />
         <option value="$PROJECT_DIR$/grumblr/templates/grumblr/global_stream_anno.html" />
+        <option value="$PROJECT_DIR$/grumblr/templates/grumblr/global_stream.html" />
         <option value="$PROJECT_DIR$/grumblr/templates/grumblr/profile.html" />
         <option value="$PROJECT_DIR$/grumblr/urls.py" />
-        <option value="$PROJECT_DIR$/grumblr/models.py" />
+        <option value="$PROJECT_DIR$/grumblr/templates/grumblr/follower_stream.html" />
+        <option value="$PROJECT_DIR$/grumblr/static/js/global_stream.js" />
         <option value="$PROJECT_DIR$/grumblr/views.py" />
-        <option value="$PROJECT_DIR$/grumblr/templates/grumblr/global_stream.html" />
+        <option value="$PROJECT_DIR$/grumblr/models.py" />
       </list>
     </option>
   </component>
@@ -315,7 +324,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
-    <editor active="true" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
@@ -328,7 +336,7 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3989899" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="manage.py@webapps" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32954547" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="manage.py@webapps" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32954547" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -350,12 +358,12 @@
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/grumblr/views.py</url>
-          <line>298</line>
+          <line>336</line>
           <option name="timeStamp" value="6" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/grumblr/views.py</url>
-          <line>302</line>
+          <line>340</line>
           <option name="timeStamp" value="7" />
         </line-breakpoint>
       </breakpoints>
@@ -369,16 +377,14 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#1773#2564#0" expanded="false" />
-            <element signature="e#2648#2960#0" expanded="false" />
-            <element signature="e#3062#3435#0" expanded="false" />
-            <element signature="e#3515#4290#0" expanded="false" />
-            <element signature="e#4437#4794#0" expanded="false" />
-            <element signature="e#4906#5313#0" expanded="false" />
-            <element signature="e#5416#5839#0" expanded="false" />
-            <element signature="e#6607#7364#0" expanded="false" />
-            <element signature="e#7411#8000#0" expanded="false" />
-            <element signature="e#8055#8719#0" expanded="false" />
+            <element signature="e#3138#3929#0" expanded="false" />
+            <element signature="e#4427#4800#0" expanded="false" />
+            <element signature="e#4880#5655#0" expanded="false" />
+            <element signature="e#5802#6159#0" expanded="false" />
+            <element signature="e#6271#6678#0" expanded="false" />
+            <element signature="e#6781#7204#0" expanded="false" />
+            <element signature="e#8775#9364#0" expanded="false" />
+            <element signature="e#9419#10083#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -442,16 +448,14 @@
         <state relative-caret-position="918">
           <caret line="52" column="0" lean-forward="false" selection-start-line="52" selection-start-column="0" selection-end-line="52" selection-end-column="0" />
           <folding>
-            <element signature="e#1773#2564#0" expanded="false" />
-            <element signature="e#2648#2960#0" expanded="false" />
-            <element signature="e#3062#3435#0" expanded="false" />
-            <element signature="e#3515#4290#0" expanded="false" />
-            <element signature="e#4437#4794#0" expanded="false" />
-            <element signature="e#4906#5313#0" expanded="false" />
-            <element signature="e#5416#5839#0" expanded="false" />
-            <element signature="e#6607#7364#0" expanded="false" />
-            <element signature="e#7411#8000#0" expanded="false" />
-            <element signature="e#8055#8719#0" expanded="false" />
+            <element signature="e#3138#3929#0" expanded="false" />
+            <element signature="e#4427#4800#0" expanded="false" />
+            <element signature="e#4880#5655#0" expanded="false" />
+            <element signature="e#5802#6159#0" expanded="false" />
+            <element signature="e#6271#6678#0" expanded="false" />
+            <element signature="e#6781#7204#0" expanded="false" />
+            <element signature="e#8775#9364#0" expanded="false" />
+            <element signature="e#9419#10083#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -584,16 +588,14 @@
         <state relative-caret-position="918">
           <caret line="52" column="0" lean-forward="false" selection-start-line="52" selection-start-column="0" selection-end-line="52" selection-end-column="0" />
           <folding>
-            <element signature="e#1773#2564#0" expanded="false" />
-            <element signature="e#2648#2960#0" expanded="false" />
-            <element signature="e#3062#3435#0" expanded="false" />
-            <element signature="e#3515#4290#0" expanded="false" />
-            <element signature="e#4437#4794#0" expanded="false" />
-            <element signature="e#4906#5313#0" expanded="false" />
-            <element signature="e#5416#5839#0" expanded="false" />
-            <element signature="e#6607#7364#0" expanded="false" />
-            <element signature="e#7411#8000#0" expanded="false" />
-            <element signature="e#8055#8719#0" expanded="false" />
+            <element signature="e#3138#3929#0" expanded="false" />
+            <element signature="e#4427#4800#0" expanded="false" />
+            <element signature="e#4880#5655#0" expanded="false" />
+            <element signature="e#5802#6159#0" expanded="false" />
+            <element signature="e#6271#6678#0" expanded="false" />
+            <element signature="e#6781#7204#0" expanded="false" />
+            <element signature="e#8775#9364#0" expanded="false" />
+            <element signature="e#9419#10083#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -660,7 +662,7 @@
         <state relative-caret-position="145">
           <caret line="9" column="0" lean-forward="true" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
           <folding>
-            <element signature="e#0#24#0" expanded="true" />
+            <element signature="e#0#24#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -685,14 +687,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1107">
           <caret line="41" column="38" lean-forward="false" selection-start-line="41" selection-start-column="38" selection-end-line="41" selection-end-column="38" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/grumblr/static/js/global_stream.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="799">
-          <caret line="102" column="9" lean-forward="false" selection-start-line="102" selection-start-column="9" selection-end-line="102" selection-end-column="9" />
           <folding />
         </state>
       </provider>
@@ -729,22 +723,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/grumblr/templates/grumblr/follower_stream.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-200">
-          <caret line="9" column="14" lean-forward="true" selection-start-line="9" selection-start-column="14" selection-end-line="9" selection-end-column="14" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/grumblr/templates/grumblr/profile.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="280">
-          <caret line="11" column="0" lean-forward="true" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/grumblr/templates/grumblr/global_stream_anno.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="270">
@@ -753,47 +731,69 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/grumblr/templates/grumblr/profile.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="72" column="78" lean-forward="false" selection-start-line="72" selection-start-column="78" selection-end-line="72" selection-end-column="78" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/grumblr/urls.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="66" column="69" lean-forward="false" selection-start-line="66" selection-start-column="69" selection-end-line="66" selection-end-column="69" />
+        <state relative-caret-position="363">
+          <caret line="69" column="115" lean-forward="false" selection-start-line="69" selection-start-column="115" selection-end-line="69" selection-end-column="115" />
           <folding>
             <element signature="e#642#683#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/grumblr/models.py">
+    <entry file="file://$PROJECT_DIR$/grumblr/templates/grumblr/follower_stream.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="264">
-          <caret line="64" column="0" lean-forward="true" selection-start-line="64" selection-start-column="0" selection-end-line="64" selection-end-column="0" />
+        <state relative-caret-position="244">
+          <caret line="47" column="44" lean-forward="true" selection-start-line="47" selection-start-column="44" selection-end-line="47" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/grumblr/static/js/global_stream.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="186">
+          <caret line="79" column="12" lean-forward="false" selection-start-line="79" selection-start-column="12" selection-end-line="79" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/grumblr/templates/grumblr/global_stream.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="116" column="0" lean-forward="true" selection-start-line="116" selection-start-column="0" selection-end-line="116" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/grumblr/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-39">
-          <caret line="38" column="58" lean-forward="false" selection-start-line="38" selection-start-column="58" selection-end-line="38" selection-end-column="58" />
+        <state relative-caret-position="218">
+          <caret line="137" column="13" lean-forward="false" selection-start-line="137" selection-start-column="13" selection-end-line="137" selection-end-column="13" />
           <folding>
-            <element signature="e#1773#2564#0" expanded="false" />
-            <element signature="e#2648#2960#0" expanded="false" />
-            <element signature="e#3062#3435#0" expanded="false" />
-            <element signature="e#3515#4290#0" expanded="false" />
-            <element signature="e#4437#4794#0" expanded="false" />
-            <element signature="e#4906#5313#0" expanded="false" />
-            <element signature="e#5416#5839#0" expanded="false" />
-            <element signature="e#6607#7364#0" expanded="false" />
-            <element signature="e#7411#8000#0" expanded="false" />
-            <element signature="e#8055#8719#0" expanded="false" />
+            <element signature="e#3138#3929#0" expanded="false" />
+            <element signature="e#4427#4800#0" expanded="false" />
+            <element signature="e#4880#5655#0" expanded="false" />
+            <element signature="e#5802#6159#0" expanded="false" />
+            <element signature="e#6271#6678#0" expanded="false" />
+            <element signature="e#6781#7204#0" expanded="false" />
+            <element signature="e#8775#9364#0" expanded="false" />
+            <element signature="e#9419#10083#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/grumblr/templates/grumblr/global_stream.html">
+    <entry file="file://$PROJECT_DIR$/grumblr/models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="231">
-          <caret line="89" column="30" lean-forward="false" selection-start-line="89" selection-start-column="30" selection-end-line="89" selection-end-column="30" />
+        <state relative-caret-position="243">
+          <caret line="15" column="54" lean-forward="false" selection-start-line="15" selection-start-column="54" selection-end-line="15" selection-end-column="54" />
           <folding />
         </state>
       </provider>

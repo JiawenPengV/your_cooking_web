@@ -19,6 +19,44 @@ from django.db import transaction
 from django.contrib.auth.tokens import default_token_generator
 from django.core.urlresolvers import reverse
 
+@transaction.atomic
+def vote_from_follower(request, post_id):
+    post = Post.objects.get(id=post_id)
+    post.vote = post.vote + 1
+    post.save()
+
+    profile = Profile.objects.get(user = request.user)
+    profile.voting.add(post)
+    profile.save()
+
+    voting=profile.voting.all()
+    followees = profile.followees.all()
+    posts = profile.followees.all()
+    context = {'voting': voting, 'followees' : followees}
+    # return redirect('/grumblr/follower_stream')
+    return render(request, 'grumblr/follower_stream.html',
+                  {'request_user_profile': profile, 'posts': posts, 'user': request.user,
+                   'followees': followees,'voting': voting})
+
+
+@transaction.atomic
+def devote_from_follower(request, post_id):
+    post = Post.objects.get(id=post_id)
+    post.vote = post.vote - 1
+    post.save()
+
+    profile = Profile.objects.get(user = request.user)
+    profile.voting.remove(post)
+    profile.save()
+
+    voting=profile.voting.all()
+    followees = profile.followees.all()
+    posts = profile.followees.all()
+    context = {'voting': voting, 'followees': followees}
+    # return redirect('/grumblr/follower_stream')
+    return render(request, 'grumblr/follower_stream.html',
+                  {'request_user_profile': profile, 'posts': posts, 'user': request.user,
+                   'followees': followees, 'voting': voting})
 
 @transaction.atomic
 def vote(request, post_id):
@@ -242,7 +280,7 @@ def post(request):
     posts = Post.objects.all().order_by("-time")
     context['request_user_profile']=request_user_profile
     context['posts'] = posts
-    context['username'] = request.user.username;
+    context['username'] = request.user.username
     return render(request, 'grumblr/posts.json', context, content_type='application/json')
 
 @login_required
