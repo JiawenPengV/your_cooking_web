@@ -2,6 +2,23 @@ from django import forms
 from django.contrib.auth.models import User
 from grumblr.models import *
 
+class SearchForm(forms.Form):
+
+
+    key = forms.CharField(max_length = 42)
+
+
+
+    def clean(self):
+        cleaned_data = super(SearchForm, self).clean()
+
+        key = self.cleaned_data.get('key')
+
+        if not key:
+            raise forms.ValidationError("Post cannot be empty.")
+
+        return cleaned_data
+
 class PostForm(forms.Form):
     post = forms.CharField(max_length = 42)
 

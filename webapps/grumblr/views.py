@@ -19,6 +19,36 @@ from django.db import transaction
 from django.contrib.auth.tokens import default_token_generator
 from django.core.urlresolvers import reverse
 
+@transaction.atomic
+def search(request):
+    context = {}
+    form = SearchForm(request.POST)
+    context['form'] = form
+    key = form['key'].value()
+
+    print(key)
+
+    if not form.is_valid():
+        return render(request, 'grumblr/global_stream.html', context)
+
+    try:
+
+        posts = Post.objects.filter(content__contains=key).order_by("-time")
+
+    except ObjectDoesNotExist:
+        posts = []
+    try:
+        profile = Profile.objects.get(user=request.user)
+    except ObjectDoesNotExist:
+        raise Http404
+
+
+
+    followees = profile.followees.all()
+    request_user_profile = Profile.objects.get(user=request.user)
+    return render(request, 'grumblr/global_stream.html',
+                  {'request_user_profile': request_user_profile, 'posts': posts, 'user': request.user,
+                   'followees': followees})
 
 
 @transaction.atomic

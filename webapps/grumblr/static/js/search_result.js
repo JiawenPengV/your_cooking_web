@@ -1,9 +1,9 @@
 function populateList() {
-    $.get("/grumblr/get-changes")
+    $.get("/grumblr/get_search_changes")
       .done(function(data) {
           var list = $("#post-list");
           list.data('max-time', data['max-time']);
-          
+
           list.html('')
 
           getUpdates();
@@ -39,7 +39,7 @@ function getUpdates() {
 
     var list = $("#post-list")
     var max_time = list.data("max-time")
-    $.get("/grumblr/get-changes/" + max_time)
+    $.get("/grumblr/get_search_changes/" + max_time)
       .done(function(data) {
           list.data('max-time', data['max-time']);
 

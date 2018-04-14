@@ -58,4 +58,9 @@ urlpatterns = [
     url(r'^get-comments-changes-for-post/(?P<time>.*)/(?P<post_id>\d+)$', grumblr.views.get_comments_changes_for_post),
     url(r'^get-changes-profile/(?P<username>.+)/(?P<time>.+)$', grumblr.views.get_changes_profile),
     url(r'^get-changes-profile/(?P<username>.+)/?$', grumblr.views.get_changes_profile),
+
+    url(r'^search/?$', grumblr.views.search , name='search'),
+    url(r'^get_search_changes/(?P<username>.+)/(?P<time>.+)$', grumblr.views.get_changes_profile),
+    url(r'^get-changes-profile/(?P<username>.+)/?$', grumblr.views.get_changes_profile),
+
 ]
