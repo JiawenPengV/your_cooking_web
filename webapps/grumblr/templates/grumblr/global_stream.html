@@ -80,6 +80,12 @@
                             <form method='post' action={% url 'delete' post.id %}>
                             <span> <input type='submit' class='btn btn-xs btn-danger delete-btn'
                                           value='Delete'></span>{% endifequal %}{% csrf_token %}</form>
+                        {% if post in followees %}
+					<a class="btn btn-warning btn-unfollow" href="{% url 'unfollow_from_home' post.id %}">unfaviriot</a>
+					{% else %}
+					<a class="btn btn-success btn-follow" href="{% url 'follow' post.id %}">Favoriate</a>
+					{% endif %}
+
                     </div>
 
                 {% endfor %}

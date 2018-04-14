@@ -249,9 +249,9 @@ def profile(request, username):
     return render(request, 'grumblr/profile.html', context)
 
 @login_required
-def follow(request, username):
+def follow(request, post_id):
     try:
-        post_user = User.objects.get(username=username)
+        post = Post.objects.get(id=post_id)
     except ObjectDoesNotExist:
         raise Http404
 
@@ -260,56 +260,64 @@ def follow(request, username):
     except ObjectDoesNotExist:
         raise Http404
 
-    request_user_profile.followees.add(post_user);
+    request_user_profile.followees.add(post);
     request_user_profile.save()
 
-    request_user_followees=request_user_profile.followees.all()
+    # request_user_followees=request_user_profile.followees.all()
 
-    post_user_profile=Profile.objects.get(user=post_user)
-    followees = post_user_profile.followees.all()
-    posts = Post.objects.filter(user__in=followees).order_by("-time")
-    request_user_profile = Profile.objects.filter(user=request.user)
- 
-    context = {'posts' : posts, 'user' : post_user, 'profile' : post_user_profile, 'followees' : request_user_followees,'request_user_profile': request_user_profile}
-    return redirect('/grumblr/profile/' + username)
+    # # post_user_profile=Profile.objects.get(user=post_user)
+    followees = request_user_profile.followees.all()
+    # posts = Post.objects.filter(user__in=followees).order_by("-time")
+    # request_user_profile = Profile.objects.filter(user=request.user)
+    #
+    context = { 'followees' : followees,'request_user_profile': request_user_profile}
+    return redirect('/')
 
 @login_required
-def unfollow(request, username):
-    try:
-        post_user = User.objects.get(username=username)
-    except ObjectDoesNotExist:
-        raise Http404
+def unfollow(request, post_id):
+
 
     try:
         profile = Profile.objects.get(user=request.user)
     except ObjectDoesNotExist:
         raise Http404
-
-    profile.followees.remove(post_user);
+    post = Post.objects.get(id=post_id)
+    profile.followees.remove(post);
     profile.save()
-    post_user_profile=Profile.objects.get(user=post_user)
+
     
-    request_user_followees = profile.followees.all();
-    followees = post_user_profile.followees.all()
-    
-    posts = Post.objects.filter(user__in=followees).order_by("-time")
-    request_user_profile = Profile.objects.get(user=request.user)
-    
-    context = {'posts' : posts, 'user' : post_user, 'profile' : post_user_profile, 'followees' : request_user_followees,'request_user_profile': request_user_profile}
-    return redirect('/grumblr/profile/' + username)
+    followees = profile.followees.all()
+
+
+
+    context = {'followees': followees, 'request_user_profile': profile}
+    return redirect('/grumblr/follower_stream')
+
+
+@login_required
+def unfollow_from_home(request, post_id):
+    try:
+        profile = Profile.objects.get(user=request.user)
+    except ObjectDoesNotExist:
+        raise Http404
+    post = Post.objects.get(id=post_id)
+    profile.followees.remove(post);
+    profile.save()
+
+    followees = profile.followees.all()
+
+    context = {'followees': followees, 'request_user_profile': profile}
+    return redirect('/')
 
 @login_required
 def follower_stream(request):
-    
-    try:
-        profile = Profile.objects.get(user=request.user)
-    except ObjectDoesNotExist:
-        raise Http404
 
-    followees = profile.followees.all()
-    posts = Post.objects.filter(user__in=followees).order_by("-time")
+
+    # posts = Post.objects.filter(user__in=followees).order_by("-time")
     request_user_profile = Profile.objects.get(user=request.user)
-    return render(request, 'grumblr/follower_stream.html', {'posts' : posts, 'user' : request.user, 'followees' : followees,'request_user_profile': request_user_profile})
+    posts = request_user_profile.followees.all()
+    request_user_followees = request_user_profile.followees.all()
+    return render(request, 'grumblr/follower_stream.html', {'followees' : request_user_followees,'posts' : posts, 'user' : request.user, 'request_user_profile': request_user_profile})
 
 
 @login_required()

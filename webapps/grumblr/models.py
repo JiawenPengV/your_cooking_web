@@ -59,7 +59,7 @@ class Profile(models.Model):
     age = models.PositiveSmallIntegerField()
     bio = models.CharField(max_length=420, default="", blank=True)
     picture = models.ImageField(upload_to="profile_pictures", blank=True)
-    followees = models.ManyToManyField(User,related_name='User+',
+    followees = models.ManyToManyField(Post,related_name='Post+',
     )
 
     @staticmethod

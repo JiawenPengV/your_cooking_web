@@ -29,7 +29,7 @@ urlpatterns = [
     url(r'^post', grumblr.views.post, name='post'),
     url(r'^profile/(?P<username>\w+)$', grumblr.views.profile, name='profile'),
     url(r'^photo/(?P<username>\w+)$', grumblr.views.get_profile_photo, name='photo'),
-    url(r'^follow/(?P<username>\w+)$', grumblr.views.follow, name='follow'),
+    url(r'^follow/(?P<post_id>\w+)$', grumblr.views.follow, name='follow'),
     
     url(r'^password_reset_form/(?P<username>\w+)$', grumblr.views.password_reset_form, name='reset_form'),
     url(r'^edit_profile$', grumblr.views.edit_profile, name='edit_profile'),
@@ -40,8 +40,8 @@ urlpatterns = [
     url(r'^logout$', django.contrib.auth.views.logout_then_login, name='logout'),
   
     url(r'^follower_stream$', grumblr.views.follower_stream, name='follower_stream'),
-    url(r'^unfollow/(?P<username>\w+)$', grumblr.views.unfollow, name='unfollow'),
-    
+    url(r'^unfollow/(?P<post_id>\w+)$', grumblr.views.unfollow, name='unfollow'),
+    url(r'^unfollow_home/(?P<post_id>\w+)$', grumblr.views.unfollow_from_home, name='unfollow_from_home'),
 
     url(r'^delete/(?P<id>\d+)$', grumblr.views.delete, name='delete'),
 
