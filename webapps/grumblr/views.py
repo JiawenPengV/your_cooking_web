@@ -19,6 +19,88 @@ from django.db import transaction
 from django.contrib.auth.tokens import default_token_generator
 from django.core.urlresolvers import reverse
 
+
+@login_required
+def follow_from_search(request, post_id):
+    try:
+        profile = Profile.objects.get(user=request.user)
+    except ObjectDoesNotExist:
+        raise Http404
+    post = Post.objects.get(id=post_id)
+    profile.followees.add(post);
+    profile.save()
+
+    followees = profile.followees.all()
+    voting = profile.voting.all()
+    context = {'followees': followees, 'request_user_profile': profile}
+    posts = profile.searching.all()
+    return render(request, 'grumblr/search_result.html',
+                  {'request_user_profile': profile, 'posts' : posts, 'user': request.user,
+                   'followees': followees, 'voting': voting})
+
+@login_required
+def unfollow_from_search(request, post_id):
+    try:
+        profile = Profile.objects.get(user=request.user)
+    except ObjectDoesNotExist:
+        raise Http404
+    post = Post.objects.get(id=post_id)
+    profile.followees.remove(post);
+    profile.save()
+
+    followees = profile.followees.all()
+    voting = profile.voting.all()
+    context = {'followees': followees, 'request_user_profile': profile}
+    posts = profile.searching.all()
+    return render(request, 'grumblr/search_result.html',
+                  {'request_user_profile': profile, 'posts': posts, 'user': request.user,
+                   'followees': followees, 'voting': voting})
+
+
+
+@transaction.atomic
+def vote_from_search(request, post_id):
+    post = Post.objects.get(id=post_id)
+    post.vote = post.vote + 1
+    post.save()
+
+    profile = Profile.objects.get(user = request.user)
+    profile.voting.add(post)
+    profile.save()
+
+    voting=profile.voting.all()
+    followees = profile.followees.all()
+    posts = profile.followees.all()
+    context = {'voting': voting, 'followees' : followees}
+    # return redirect('/grumblr/follower_stream')
+    posts = profile.searching.all()
+    return render(request, 'grumblr/search_result.html',
+                  {'request_user_profile': profile, 'posts': posts, 'user': request.user,
+                   'followees': followees, 'voting': voting})
+
+
+@transaction.atomic
+def devote_from_search(request, post_id):
+    post = Post.objects.get(id=post_id)
+    post.vote = post.vote - 1
+    post.save()
+
+    profile = Profile.objects.get(user = request.user)
+    profile.voting.remove(post)
+    profile.save()
+
+    voting=profile.voting.all()
+    followees = profile.followees.all()
+    posts = profile.followees.all()
+    context = {'voting': voting, 'followees': followees}
+    # return redirect('/grumblr/follower_stream')
+    posts = profile.searching.all()
+    return render(request, 'grumblr/search_result.html',
+                  {'request_user_profile': profile, 'posts': posts, 'user': request.user,
+                   'followees': followees, 'voting': voting})
+
+
+
 @transaction.atomic
 def vote_from_follower(request, post_id):
     post = Post.objects.get(id=post_id)
@@ -72,6 +154,7 @@ def vote(request, post_id):
     followees = profile.followees.all()
     posts = Post.objects.all().order_by("-time")
     context = {'voting': voting, 'followees' : followees}
+
     return render(request, 'grumblr/global_stream.html',
                   {'request_user_profile': profile, 'posts': posts, 'user': request.user,
                    'followees': followees,'voting': voting})
@@ -120,12 +203,14 @@ def search(request):
         raise Http404
 
 
-
+    profile.searching = posts
+    profile.save()
     followees = profile.followees.all()
+    voting = profile.voting.all()
     request_user_profile = Profile.objects.get(user=request.user)
-    return render(request, 'grumblr/global_stream.html',
+    return render(request, 'grumblr/search_result.html',
                   {'request_user_profile': request_user_profile, 'posts': posts, 'user': request.user,
-                   'followees': followees})
+                   'followees': followees,'voting' : voting})
 
 
 @transaction.atomic

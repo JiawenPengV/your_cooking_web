@@ -60,8 +60,8 @@ class Profile(models.Model):
     bio = models.CharField(max_length=420, default="", blank=True)
     picture = models.ImageField(upload_to="profile_pictures", blank=True)
     followees = models.ManyToManyField(Post,related_name='Post+',)
-    voting = models.ManyToManyField(Post, related_name='Posting+',
-    )
+    voting = models.ManyToManyField(Post, related_name='Posting+',)
+    searching = models.ManyToManyField(Post, related_name='searching+', )
 
     @staticmethod
     def get_profile(user):
