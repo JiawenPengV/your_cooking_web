@@ -19,6 +19,20 @@ from django.core.mail import send_mail
 from django.db import transaction
 from django.contrib.auth.tokens import default_token_generator
 from django.core.urlresolvers import reverse
+
+import nltk
+import ssl
+
+try:
+    _create_unverified_https_context = ssl._create_unverified_context
+except AttributeError:
+    pass
+else:
+    ssl._create_default_https_context = _create_unverified_https_context
+
+
+nltk.download('punkt')
+nltk.download('averaged_perceptron_tagger')
 @login_required
 def add_tag(request, post_id):
     context = {}
@@ -231,6 +245,13 @@ def search(request):
     form = SearchForm(request.POST)
     context['form'] = form
     key = form['key'].value()
+
+    words = nltk.word_tokenize(key)
+    tagged = nltk.pos_tag(words)
+    for word in tagged :
+        print(word[1])
+        if word[1] == 'NNS' or 'NN':
+            key = word[0]
 
 
     if not form.is_valid():
