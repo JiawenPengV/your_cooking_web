@@ -1,20 +1,4 @@
-function populateList() {
-    $.get("/grumblr/get-changes")
-      .done(function(data) {
-          var list = $("#post-list");
-          list.data('max-time', data['max-time']);
-          
-          list.html('')
 
-          getUpdates();
-          for (var i = 0; i < data.posts.length; i++) {
-              post = data.posts[i];
-              var new_post = $(post.html);
-              new_post.data("post-id", post.id);
-              list.prepend(new_post);
-          }
-      });
-}
 
 function addPost(){
     var postField = $("#post-field");
@@ -25,62 +9,17 @@ function addPost(){
       });
 }
 
-function addComment(post_id){
-    var commentField = $("#comment-field"+post_id);
-    $.post("/grumblr/add-comment/" + post_id, {comment: commentField.val()})
-      .done(function(data) {
-          // commentField.val("").focus();
-          // getUpdates();
 
-      });
-}
 
-function getUpdates() {
 
-    var list = $("#post-list")
-    var max_time = list.data("max-time")
-    $.get("/grumblr/get-changes/" + max_time)
-      .done(function(data) {
-          list.data('max-time', data['max-time']);
-
-          for (var i = 0; i < data.posts.length; i++) {
-              var post = data.posts[i];
-              var new_post = $(post.html);
-              new_post.data("post-id", post.id);
-              list.prepend(new_post);
-          }
-
-          var all_posts = list.children("div.post-item");
-          for (var j = 0; j < all_posts.length; j++) {
-              post = all_posts[j];
-              updateComments(post.id);
-          }
-      });
-}
-
-function updateComments(id) {
-    var list = $("#comment-list" + id);
-    var max_time = list.data("max-time")
-    $.get("/grumblr/get-comments-changes/" + max_time + "/" + id)
-      .done(function(data) {
-          list.data('max-time', data['max-time']);
-          for (var i = 0; i < data.comments.length; i++) {
-              var comment = data.comments[i];
-              var new_comment = $(comment.html);
-              var max_time = list.data("max-time");
-              list.append(new_comment);
-          }
-      });
-}
 
 $(document).ready(function () {
 
   $("#post-button").click(addPost);
-  populateList();
+  // populateList();
   $("#post-field").focus();
 
-  // Periodically refresh to-do list every 5 seconds
-  // window.setInterval(getUpdates, 50000000000);
+
 
   function getCookie(name) {
     var cookieValue = null;

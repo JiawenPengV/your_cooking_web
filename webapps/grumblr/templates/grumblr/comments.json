@@ -1,1 +1,0 @@
-{"max-time":"{{max_time|date:"c"}}", "comments":[{% for comment in comments %}{%spaceless%}{% include 'grumblr/comment.json' %}{%endspaceless%}{% if not forloop.last %}, {% endif %}{% endfor %}]}
