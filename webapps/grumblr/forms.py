@@ -2,6 +2,23 @@ from django import forms
 from django.contrib.auth.models import User
 from grumblr.models import *
 
+class TagForm(forms.Form):
+
+
+    tag = forms.CharField(max_length = 42)
+
+
+
+    def clean(self):
+        cleaned_data = super(TagForm, self).clean()
+
+        tag = self.cleaned_data.get('tag')
+
+        if not tag:
+            raise forms.ValidationError("Tag cannot be empty.")
+
+        return cleaned_data
+
 class SearchForm(forms.Form):
 
 
@@ -15,7 +32,7 @@ class SearchForm(forms.Form):
         key = self.cleaned_data.get('key')
 
         if not key:
-            raise forms.ValidationError("Post cannot be empty.")
+            raise forms.ValidationError("Search content cannot be empty.")
 
         return cleaned_data
 

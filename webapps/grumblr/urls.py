@@ -75,4 +75,6 @@ urlpatterns = [
     url(r'^follow_from_search/(?P<post_id>.+)/?$', grumblr.views.follow_from_search, name='follow_from_search'),
     url(r'^unfollow_from_search/(?P<post_id>.+)/?$', grumblr.views.unfollow_from_search, name='unfollow_from_search'),
 
+
+    url(r'^add_tag/(?P<post_id>.+)/?$', grumblr.views.add_tag, name='add_tag'),
 ]

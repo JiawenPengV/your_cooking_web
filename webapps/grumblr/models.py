@@ -8,6 +8,14 @@ from django.db.models import Max
 
 # Create your models here.
 
+class Tag(models.Model):
+    content = models.CharField(max_length=420)
+
+
+    def __unicode__(self):
+        return self.content
+
+
 class Post(models.Model):
     user = models.ForeignKey(User)
     content = models.CharField(max_length=42)
@@ -15,6 +23,8 @@ class Post(models.Model):
     time = models.DateTimeField(auto_now_add=True)
     last_changed = models.DateTimeField(auto_now=True)
     vote = models.IntegerField(default=0)
+
+    tags = models.ManyToManyField(Tag,related_name='Tag+',default=[])
 
     def __unicode__(self):
         return self.post

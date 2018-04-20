@@ -19,6 +19,31 @@ from django.core.mail import send_mail
 from django.db import transaction
 from django.contrib.auth.tokens import default_token_generator
 from django.core.urlresolvers import reverse
+@login_required
+def add_tag(request, post_id):
+    context = {}
+    form = TagForm(request.POST)
+    context['form'] = form
+    tag = form['tag'].value()
+
+    post = Post.objects.get(id=post_id)
+    new_tag = Tag.objects.create(content=tag)
+    new_tag.save()
+    post.tags.add(new_tag)
+    post.save()
+
+    posts = Post.objects.all().order_by("-time")
+    try:
+        profile = Profile.objects.get(user=request.user)
+    except ObjectDoesNotExist:
+        raise Http404
+
+    followees = profile.followees.all()
+    voting = profile.voting.all()
+    request_user_profile = Profile.objects.get(user=request.user)
+    return render(request, 'grumblr/global_stream.html',
+                  {'request_user_profile': request_user_profile, 'posts': posts, 'user': request.user,
+                   'followees': followees, 'voting': voting})
 
 
 @login_required
@@ -213,18 +238,14 @@ def search(request):
 
     try:
         all_ids = request.user.profile.followees.values('id')
-        posts_following = request.user.profile.followees.all().filter(content__contains=key).order_by("-vote")
+        posts_following1 = request.user.profile.followees.all().filter(tags__content__contains=key).order_by("-vote")
+        posts_following2 = request.user.profile.followees.all().filter(content__contains=key).order_by("-vote")
+        posts_following = posts_following1 | posts_following2
 
-        posts_not_following = Post.objects.filter(content__contains=key).exclude(id__in=all_ids).order_by("-vote")
-        # tmp = []
-        # # for each in posts_not_following.all() :
-        # #     if each in posts_following.all() :
-        # #         # print(each)
-        # #         posts_not_following.delete(each.objects)
-        # #
-        # posts_following.union(posts_not_following)
-        # posts = list(posts_following0 | posts_not_following
-        # # posts = chain(posts_following , posts_not_following)
+        posts_not_following1 = Post.objects.filter(content__contains=key).exclude(id__in=all_ids).order_by("-vote")
+        posts_not_following2 = Post.objects.filter(tags__content__contains=key).exclude(id__in=all_ids).order_by("-vote")
+        posts_not_following = posts_not_following1 | posts_not_following2
+
     except ObjectDoesNotExist:
         posts_following = []
         posts_not_following = []
