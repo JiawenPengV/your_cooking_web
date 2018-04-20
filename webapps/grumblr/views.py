@@ -28,6 +28,7 @@ def follow_from_search(request, post_id):
     except ObjectDoesNotExist:
         raise Http404
     post = Post.objects.get(id=post_id)
+
     profile.followees.add(post);
     profile.save()
 
@@ -37,9 +38,16 @@ def follow_from_search(request, post_id):
 
     posts_following = profile.searching_following.all()
     posts_not_following = profile.searching_not_following.all()
+
+    list_follow = list(posts_following)
+    list_not_follow = list(posts_not_following)
+
+    list_follow.append(post)
+    list_not_follow.remove(post)
+
     return render(request, 'grumblr/search_result.html',
-                  {'request_user_profile': profile, 'posts_following': posts_following,
-                   'posts_not_following': posts_not_following, 'user': request.user,
+                  {'request_user_profile': profile, 'posts_following': list_follow,
+                   'posts_not_following': list_not_follow, 'user': request.user,
                    'followees': followees, 'voting': voting})
 
 @login_required
@@ -55,14 +63,19 @@ def unfollow_from_search(request, post_id):
     followees = profile.followees.all()
     voting = profile.voting.all()
     context = {'followees': followees, 'request_user_profile': profile}
+
     posts_following = profile.searching_following.all()
     posts_not_following = profile.searching_not_following.all()
+    list_follow = list(posts_following)
+    list_not_follow = list(posts_not_following)
+
+    list_follow.remove(post)
+    list_not_follow.append(post)
+
     return render(request, 'grumblr/search_result.html',
-                  {'request_user_profile': profile, 'posts_following': posts_following,
-                   'posts_not_following': posts_not_following, 'user': request.user,
+                  {'request_user_profile': profile, 'posts_following': list_follow,
+                   'posts_not_following': list_not_follow, 'user': request.user,
                    'followees': followees, 'voting': voting})
-
-
 
 @transaction.atomic
 def vote_from_search(request, post_id):
