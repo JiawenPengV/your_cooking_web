@@ -380,7 +380,7 @@ def profile(request, username):
         raise Http404
 
    
-    posts_of_user = Post.objects.filter(user=post_user).order_by("-time")
+    posts = Post.objects.filter(user=post_user).order_by("-time")
    
     try:
         post_user_profile = Profile.objects.get(user=post_user)
@@ -388,10 +388,16 @@ def profile(request, username):
         raise Http404
 
     followees = request.user.profile.followees.all()
+    voting = request.user.profile.voting.all()
+
+    # request_user_profile = Profile.objects.get(user=request.user)
+    # context = {'posts' : posts_of_user, 'user' : post_user, 'profile' : post_user_profile, 'followees' : followees,'request_user_profile': request_user_profile}
+    # return render(request, 'grumblr/profile.html', context)
+
 
     request_user_profile = Profile.objects.get(user=request.user)
-    context = {'posts' : posts_of_user, 'user' : post_user, 'profile' : post_user_profile, 'followees' : followees,'request_user_profile': request_user_profile}
-    return render(request, 'grumblr/profile.html', context)
+    return render(request, 'grumblr/profile.html', {'request_user_profile':request_user_profile,'posts' : posts, 'user' : request.user, 'followees' : followees, 'voting' : voting})
+
 
 @login_required
 def follow(request, post_id):
