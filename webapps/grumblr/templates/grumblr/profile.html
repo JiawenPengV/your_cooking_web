@@ -46,7 +46,7 @@
 
 		<div class="col-xs-12 col-sm-6 sidebar-offcanvas" id="sidebar">
 			<div class="row">
-				<div class="col-xs-8 col-sm-8">
+				<div class="col-xs-6 col-sm-6">
 					{% if profile.picture.name %}
 					<img src="{% url 'photo' user.username %}" id="profile_picture_big"  class="img-circle crop">
 					{% else %}
@@ -54,16 +54,16 @@
 					{% endif %}
 				</div>
 
-				<div class="col-xs-4 col-sm-4">
+				<div class="col-xs-6 col-sm-6">
 					<div id="info">
 						<h5>First Name: {{user.first_name}}</h5>
 						<h5>Last Name: {{user.last_name}}</h5>
 						<h5>Age: {{profile.age}}</h5>
 						<h5>About:</h5>
-						<p> {{profile.bio}} </p>
-                        <p> you have {{post_number}} posts</p>
-                        <p> you have {{vote_number}} votes</p>
-                        <p> you have {{follow_number}} following</p>
+						<p> {{profile.bio}} ？</p>
+                        <h3> you have {{post_number}} posts</h3>
+                        <h3> you have {{vote_number}} votes</h3>
+                        <h3> you have {{follow_number}} following</h3>
 
 
 						{% if user == request.user %}

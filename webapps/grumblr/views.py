@@ -406,7 +406,7 @@ def profile(request, username):
         post_number = post_number + 1
         vote_number = vote_number + post.vote
 
-    return render(request, 'grumblr/profile.html', {'follow_number': follow_number,'post_number': post_number,'vote_number':vote_number,'request_user_profile':request_user_profile,'posts' : posts, 'user' : request.user, 'followees' : followees, 'voting' : voting})
+    return render(request, 'grumblr/profile.html', {'profile':request_user_profile,'follow_number': follow_number,'post_number': post_number,'vote_number':vote_number,'request_user_profile':request_user_profile,'posts' : posts, 'user' : request.user, 'followees' : followees, 'voting' : voting})
 
 
 @login_required
