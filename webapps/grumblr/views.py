@@ -248,28 +248,40 @@ def search(request):
 
     words = nltk.word_tokenize(key)
     tagged = nltk.pos_tag(words)
+    key_list = []
     for word in tagged :
         print(word[1])
         if word[1] == 'NNS' or 'NN':
-            key = word[0]
+            key_list.append(word[0])
 
 
     if not form.is_valid():
         return render(request, 'grumblr/global_stream.html', context)
 
-    try:
-        all_ids = request.user.profile.followees.values('id')
-        posts_following1 = request.user.profile.followees.all().filter(tags__content__contains=key).order_by("-vote")
-        posts_following2 = request.user.profile.followees.all().filter(content__contains=key).order_by("-vote")
-        posts_following = posts_following1 | posts_following2
+    posts_following = Profile.objects.none()
+    posts_not_following = Profile.objects.none()
 
-        posts_not_following1 = Post.objects.filter(content__contains=key).exclude(id__in=all_ids).order_by("-vote")
-        posts_not_following2 = Post.objects.filter(tags__content__contains=key).exclude(id__in=all_ids).order_by("-vote")
-        posts_not_following = posts_not_following1 | posts_not_following2
+    for eachkey in key_list:
+        try:
+            all_ids = request.user.profile.followees.values('id')
+            posts_following1 = request.user.profile.followees.all().filter(tags__content__contains=eachkey).order_by(
+                "-vote")
+            posts_following2 = request.user.profile.followees.all().filter(content__contains=eachkey).order_by("-vote")
 
-    except ObjectDoesNotExist:
-        posts_following = []
-        posts_not_following = []
+            posts_following = posts_following | posts_following1 | posts_following2
+
+            posts_not_following1 = Post.objects.filter(content__contains=eachkey).exclude(id__in=all_ids).order_by("-vote")
+            posts_not_following2 = Post.objects.filter(tags__content__contains=eachkey).exclude(id__in=all_ids).order_by(
+                "-vote")
+            posts_not_following = posts_not_following | posts_not_following1 | posts_not_following2
+
+        except ObjectDoesNotExist:
+            posts_following = []
+            posts_not_following = []
+
+
+
+
     try:
         profile = Profile.objects.get(user=request.user)
     except ObjectDoesNotExist:
