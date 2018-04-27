@@ -61,13 +61,14 @@
 						<h5>Age: {{profile.age}}</h5>
 						<h5>About:</h5>
 						<p> {{profile.bio}} </p>
+                        <p> you have {{post_number}} posts</p>
+                        <p> you have {{vote_number}} votes</p>
+                        <p> you have {{follow_number}} following</p>
+
+
 						{% if user == request.user %}
-					<a class='btn btn-default' href="{% url 'edit_profile' %}">Edit Profile</a>
-					{% elif user in followees %}
-					<a class="btn btn-warning btn-unfollow" href="{% url 'unfollow' user.username %}">Unfollow</a>
-					{% else %}
-					<a class="btn btn-success btn-follow" href="{% url 'follow' user.username %}">Follow</a>
-					{% endif %}
+					    <a class='btn btn-default' href="{% url 'edit_profile' %}">Edit Profile</a>
+					    {% endif %}
 
 
 					

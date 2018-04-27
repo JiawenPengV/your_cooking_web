@@ -36,11 +36,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/grumblr/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="130">
-              <caret line="398" column="0" lean-forward="false" selection-start-line="398" selection-start-column="0" selection-end-line="398" selection-end-column="0" />
+            <state relative-caret-position="310">
+              <caret line="406" column="45" lean-forward="true" selection-start-line="406" selection-start-column="45" selection-end-line="406" selection-end-column="45" />
               <folding>
                 <element signature="e#26#71#0" expanded="true" />
                 <element signature="e#1054#1837#0" expanded="false" />
@@ -56,27 +56,27 @@
                 <element signature="e#9918#10341#0" expanded="false" />
                 <element signature="e#11109#11865#0" expanded="false" />
                 <element signature="e#11912#12501#0" expanded="false" />
-                <element signature="e#13567#14323#0" expanded="false" />
-                <element signature="e#14379#14757#0" expanded="false" />
-                <element signature="e#14822#15170#0" expanded="false" />
-                <element signature="e#15224#15656#0" expanded="false" />
-                <element signature="e#15711#17034#0" expanded="false" />
-                <element signature="e#17084#18338#0" expanded="false" />
-                <element signature="e#18422#18813#0" expanded="false" />
-                <element signature="e#18862#19841#0" expanded="false" />
-                <element signature="e#20001#21077#0" expanded="false" />
-                <element signature="e#21163#21518#0" expanded="false" />
-                <element signature="e#21588#22161#0" expanded="false" />
+                <element signature="e#13892#14648#0" expanded="false" />
+                <element signature="e#14704#15082#0" expanded="false" />
+                <element signature="e#15147#15495#0" expanded="false" />
+                <element signature="e#15549#15981#0" expanded="false" />
+                <element signature="e#16036#17359#0" expanded="false" />
+                <element signature="e#17409#18663#0" expanded="false" />
+                <element signature="e#18747#19138#0" expanded="false" />
+                <element signature="e#19187#20166#0" expanded="false" />
+                <element signature="e#20326#21402#0" expanded="false" />
+                <element signature="e#21488#21843#0" expanded="false" />
+                <element signature="e#21913#22486#0" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="profile.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="profile.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/grumblr/templates/grumblr/profile.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="539">
-              <caret line="127" column="28" lean-forward="false" selection-start-line="127" selection-start-column="28" selection-end-line="127" selection-end-column="28" />
+            <state relative-caret-position="326">
+              <caret line="65" column="64" lean-forward="false" selection-start-line="65" selection-start-column="64" selection-end-line="65" selection-end-column="64" />
               <folding />
             </state>
           </provider>
@@ -157,8 +157,8 @@
         <option value="$PROJECT_DIR$/grumblr/static/js/global_stream.js" />
         <option value="$PROJECT_DIR$/grumblr/templates/grumblr/global_stream.html" />
         <option value="$PROJECT_DIR$/grumblr/urls.py" />
-        <option value="$PROJECT_DIR$/grumblr/views.py" />
         <option value="$PROJECT_DIR$/grumblr/templates/grumblr/profile.html" />
+        <option value="$PROJECT_DIR$/grumblr/views.py" />
       </list>
     </option>
   </component>
@@ -339,7 +339,7 @@
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32954547" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17171717" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16414142" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32954547" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -366,12 +366,12 @@
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/grumblr/views.py</url>
-          <line>409</line>
+          <line>419</line>
           <option name="timeStamp" value="6" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/grumblr/views.py</url>
-          <line>413</line>
+          <line>423</line>
           <option name="timeStamp" value="7" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -420,17 +420,17 @@
             <element signature="e#9918#10341#0" expanded="false" />
             <element signature="e#11109#11865#0" expanded="false" />
             <element signature="e#11912#12501#0" expanded="false" />
-            <element signature="e#13567#14323#0" expanded="false" />
-            <element signature="e#14379#14757#0" expanded="false" />
-            <element signature="e#14822#15170#0" expanded="false" />
-            <element signature="e#15224#15656#0" expanded="false" />
-            <element signature="e#15711#17034#0" expanded="false" />
-            <element signature="e#17084#18338#0" expanded="false" />
-            <element signature="e#18422#18813#0" expanded="false" />
-            <element signature="e#18862#19841#0" expanded="false" />
-            <element signature="e#20001#21077#0" expanded="false" />
-            <element signature="e#21163#21518#0" expanded="false" />
-            <element signature="e#21588#22161#0" expanded="false" />
+            <element signature="e#13892#14648#0" expanded="false" />
+            <element signature="e#14704#15082#0" expanded="false" />
+            <element signature="e#15147#15495#0" expanded="false" />
+            <element signature="e#15549#15981#0" expanded="false" />
+            <element signature="e#16036#17359#0" expanded="false" />
+            <element signature="e#17409#18663#0" expanded="false" />
+            <element signature="e#18747#19138#0" expanded="false" />
+            <element signature="e#19187#20166#0" expanded="false" />
+            <element signature="e#20326#21402#0" expanded="false" />
+            <element signature="e#21488#21843#0" expanded="false" />
+            <element signature="e#21913#22486#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -551,17 +551,17 @@
             <element signature="e#9918#10341#0" expanded="false" />
             <element signature="e#11109#11865#0" expanded="false" />
             <element signature="e#11912#12501#0" expanded="false" />
-            <element signature="e#13567#14323#0" expanded="false" />
-            <element signature="e#14379#14757#0" expanded="false" />
-            <element signature="e#14822#15170#0" expanded="false" />
-            <element signature="e#15224#15656#0" expanded="false" />
-            <element signature="e#15711#17034#0" expanded="false" />
-            <element signature="e#17084#18338#0" expanded="false" />
-            <element signature="e#18422#18813#0" expanded="false" />
-            <element signature="e#18862#19841#0" expanded="false" />
-            <element signature="e#20001#21077#0" expanded="false" />
-            <element signature="e#21163#21518#0" expanded="false" />
-            <element signature="e#21588#22161#0" expanded="false" />
+            <element signature="e#13892#14648#0" expanded="false" />
+            <element signature="e#14704#15082#0" expanded="false" />
+            <element signature="e#15147#15495#0" expanded="false" />
+            <element signature="e#15549#15981#0" expanded="false" />
+            <element signature="e#16036#17359#0" expanded="false" />
+            <element signature="e#17409#18663#0" expanded="false" />
+            <element signature="e#18747#19138#0" expanded="false" />
+            <element signature="e#19187#20166#0" expanded="false" />
+            <element signature="e#20326#21402#0" expanded="false" />
+            <element signature="e#21488#21843#0" expanded="false" />
+            <element signature="e#21913#22486#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -733,10 +733,26 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/grumblr/templates/grumblr/global_stream.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="512">
+          <caret line="106" column="28" lean-forward="true" selection-start-line="68" selection-start-column="16" selection-end-line="106" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/grumblr/templates/grumblr/profile.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="326">
+          <caret line="65" column="64" lean-forward="false" selection-start-line="65" selection-start-column="64" selection-end-line="65" selection-end-column="64" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/grumblr/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="130">
-          <caret line="398" column="0" lean-forward="false" selection-start-line="398" selection-start-column="0" selection-end-line="398" selection-end-column="0" />
+        <state relative-caret-position="310">
+          <caret line="406" column="45" lean-forward="true" selection-start-line="406" selection-start-column="45" selection-end-line="406" selection-end-column="45" />
           <folding>
             <element signature="e#26#71#0" expanded="true" />
             <element signature="e#1054#1837#0" expanded="false" />
@@ -752,34 +768,18 @@
             <element signature="e#9918#10341#0" expanded="false" />
             <element signature="e#11109#11865#0" expanded="false" />
             <element signature="e#11912#12501#0" expanded="false" />
-            <element signature="e#13567#14323#0" expanded="false" />
-            <element signature="e#14379#14757#0" expanded="false" />
-            <element signature="e#14822#15170#0" expanded="false" />
-            <element signature="e#15224#15656#0" expanded="false" />
-            <element signature="e#15711#17034#0" expanded="false" />
-            <element signature="e#17084#18338#0" expanded="false" />
-            <element signature="e#18422#18813#0" expanded="false" />
-            <element signature="e#18862#19841#0" expanded="false" />
-            <element signature="e#20001#21077#0" expanded="false" />
-            <element signature="e#21163#21518#0" expanded="false" />
-            <element signature="e#21588#22161#0" expanded="false" />
+            <element signature="e#13892#14648#0" expanded="false" />
+            <element signature="e#14704#15082#0" expanded="false" />
+            <element signature="e#15147#15495#0" expanded="false" />
+            <element signature="e#15549#15981#0" expanded="false" />
+            <element signature="e#16036#17359#0" expanded="false" />
+            <element signature="e#17409#18663#0" expanded="false" />
+            <element signature="e#18747#19138#0" expanded="false" />
+            <element signature="e#19187#20166#0" expanded="false" />
+            <element signature="e#20326#21402#0" expanded="false" />
+            <element signature="e#21488#21843#0" expanded="false" />
+            <element signature="e#21913#22486#0" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/grumblr/templates/grumblr/global_stream.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="512">
-          <caret line="106" column="28" lean-forward="true" selection-start-line="68" selection-start-column="16" selection-end-line="106" selection-end-column="28" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/grumblr/templates/grumblr/profile.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="539">
-          <caret line="127" column="28" lean-forward="false" selection-start-line="127" selection-start-column="28" selection-end-line="127" selection-end-column="28" />
-          <folding />
         </state>
       </provider>
     </entry>

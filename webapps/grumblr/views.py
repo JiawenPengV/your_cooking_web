@@ -388,6 +388,10 @@ def profile(request, username):
         raise Http404
 
     followees = request.user.profile.followees.all()
+    follow_number = 0
+    for post in followees:
+        follow_number = follow_number + 1
+
     voting = request.user.profile.voting.all()
 
     # request_user_profile = Profile.objects.get(user=request.user)
@@ -396,7 +400,13 @@ def profile(request, username):
 
 
     request_user_profile = Profile.objects.get(user=request.user)
-    return render(request, 'grumblr/profile.html', {'request_user_profile':request_user_profile,'posts' : posts, 'user' : request.user, 'followees' : followees, 'voting' : voting})
+    post_number = 0
+    vote_number = 0
+    for post in posts :
+        post_number = post_number + 1
+        vote_number = vote_number + post.vote
+
+    return render(request, 'grumblr/profile.html', {'follow_number': follow_number,'post_number': post_number,'vote_number':vote_number,'request_user_profile':request_user_profile,'posts' : posts, 'user' : request.user, 'followees' : followees, 'voting' : voting})
 
 
 @login_required
