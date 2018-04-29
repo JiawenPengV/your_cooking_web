@@ -1,6 +1,6 @@
 {% extends "grumblr/base.html" %}
 {% load static %}
-{% block title %}Grumblr Global Stream{% endblock %}
+{% block title %}Main Page{% endblock %}
 {% block css %}
     <link href="{% static 'css/offcanvas.css' %}" rel="stylesheet">
 {% endblock %}
@@ -21,7 +21,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="{% url 'home' %}">Grumblr</a>
+                <a class="navbar-brand" href="{% url 'home' %}">What to cook today</a>
             </div>
 
             <div id="navbar" class="collapse navbar-collapse">
@@ -49,7 +49,8 @@
 			<form  >
 				<div class="row row-offcanvas" id="post_row">
 					<div class="col-xs-10 col-sm-10 blog-main">
-						<input type="text" class="form-control" placeholder="Say something..." name="post" maxlength="42" required>
+						<textarea type="text" class="form-control" placeholder="Share your recipe..." name="post" maxlength="42" required>
+                        </textarea>
 					</div>
 					<div class="col-xs-1 col-sm-1 blog-main">
                          <a href="{% url 'login' %}" class="btn btn-primary">Post</a>
@@ -60,11 +61,49 @@
 			</form>
 
 			<!--all the posts are listed here-->
-			<div id='post-list'></div>
+			{% for post in posts %}
+                    <div class='well post-item' id='{{ post.id }}'><span>{% if post.user.profile.picture.name %}
+                        <img class='crop' src={% url 'photo' post.user.username %} id='profile_picture'>{% else %}
+                        <img src={% static 'images/img.jpg' %} id='profile_picture'>{% endif %}</span><span><span>{{ post.user.first_name }}</span><span
+                            class='time'>{{ post.time |date:"Y-m-d H:i" }}</span><div
+                            class='post_content'>{{ post.content }}</div></span>
+
+
+
+                        {% ifequal username post.user.username %}
+                            <form method='post' action={% url 'delete' post.id %}>
+                            <span> <input type='submit' class='btn btn-xs btn-danger delete-btn'
+                                          value='Delete'></span>{% endifequal %}{% csrf_token %}</form>
+
+                        {% if post in followees %}
+					<a class="btn btn-warning btn-unfollow" href="{% url 'unfollow_from_home' post.id %}">Delete from Favorites</a>
+					{% else %}
+					<a class="btn btn-success btn-follow" href="{% url 'follow' post.id %}">Add to Favorites</a>
+					{% endif %}
+
+                    {% if not post in voting %}
+                    <a class="btn btn-warning btn-unfollow" href="{% url 'vote' post.id %}">{{ post.vote }}</a>
+                    {% else %}
+					<a class="btn btn-success btn-follow" href="{% url 'devote' post.id %}">{{ post.vote }}</a>
+					{% endif %}
+                     <form enctype="multipart/form-data" class="navbar-form navbar-right" method="post"
+                          action="{% url 'add_tag' post.id %}">
+
+                        <div class="form-group">
+                            <input type="text" placeholder="add tag" name="tag" value="" class="form-control">
+                        </div>
+                        <button type="submit" class="btn btn-success">add tag</button>
+                        {% csrf_token %}
+                    </form>
+                    </div>
+
+
+
+                {% endfor %}
 
 	  </div><!--/.col-xs-12.col-sm-9-->
  <div class="col-xs-6 col-sm-4 sidebar-offcanvas" id="sidebar">
- 	<span><a class="btn btn-primary" href="{% url 'follower_stream' %}" role="button">Follower Stream</a></span>
+ 	<span><a class="btn btn-primary" href="{% url 'follower_stream' %}" role="button">Favorites</a></span>
  </div>
 
   </div><!--/row-->

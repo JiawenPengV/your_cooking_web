@@ -176,6 +176,8 @@ def vote_from_follower(request, post_id):
     posts = profile.followees.all()
     context = {'voting': voting, 'followees' : followees}
     # return redirect('/grumblr/follower_stream')
+
+
     return render(request, 'grumblr/follower_stream.html',
                   {'request_user_profile': profile, 'posts': posts, 'user': request.user,
                    'followees': followees,'voting': voting})
@@ -254,9 +256,11 @@ def search(request):
         if word[1] == 'NNS' or 'NN':
             key_list.append(word[0])
 
-
+    error = 'Please try other key word'
     if not form.is_valid():
-        return render(request, 'grumblr/global_stream.html', context)
+        return render(request, 'grumblr/search_result.html',
+                      {'user': request.user,'error' : error})
+        # return render(request, 'grumblr/global_stream.html', context)
 
     posts_following = Profile.objects.none()
     posts_not_following = Profile.objects.none()
@@ -478,9 +482,13 @@ def unfollow_from_home(request, post_id):
     profile.save()
 
     followees = profile.followees.all()
+    request_user_profile = Profile.objects.get(user=request.user)
+    posts = request_user_profile.followees.all()
+    request_user_followees = request_user_profile.followees.all()
+    return render(request, 'grumblr/follower_stream.html',
+                  {'followees': request_user_followees, 'posts': posts, 'user': request.user,
+                   'request_user_profile': request_user_profile})
 
-    context = {'followees': followees, 'request_user_profile': profile}
-    return redirect('/')
 
 @login_required
 def follower_stream(request):
@@ -527,13 +535,13 @@ def change_password(request):
 
     posts = Post.objects.filter(user=request.user).order_by("-time")
 
-    user = authenticate(username=user.username, \
+    user = authenticate(username=user.username,
                             password=user.password)
     login(request, user)
     request_user_profile = Profile.objects.filter(user=request.user)
     
     context = {'posts' : posts, 'errors' : errors, 'user' : request.user, 'profile' : profile,'request_user_profile':request_user_profile}
-    return redirect('/grumblr/profile/' + request.user.username)
+    return redirect('/cooking/profile/' + request.user.username)
 
 
 @login_required
@@ -578,7 +586,7 @@ def edit_profile(request):
     request_user_profile = Profile.objects.filter(user=request.user)
     
     context = {'posts' : posts_of_user, 'user' : request.user, 'profile' : profile,'request_user_profile':request_user_profile}
-    return redirect('/grumblr/profile/' + request.user.username)
+    return redirect('/cooking/profile/' + request.user.username)
 
 # get the user profile photos
 

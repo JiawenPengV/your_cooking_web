@@ -23,7 +23,7 @@ import grumblr.views
 
 urlpatterns = [
     url(r'^$', grumblr.views.home),
-    url(r'^global_stream$', grumblr.views.home, name='home'),
+    url(r'^main_page$', grumblr.views.home, name='home'),
     url(r'^register$', grumblr.views.register, name='register'),
     
     url(r'^post', grumblr.views.post, name='post'),
@@ -39,7 +39,7 @@ urlpatterns = [
     url(r'^login$', django.contrib.auth.views.login, {'template_name':'grumblr/login.html'}, name='login'),
     url(r'^logout$', django.contrib.auth.views.logout_then_login, name='logout'),
   
-    url(r'^follower_stream$', grumblr.views.follower_stream, name='follower_stream'),
+    url(r'^favorites$', grumblr.views.follower_stream, name='follower_stream'),
     url(r'^unfollow/(?P<post_id>\w+)$', grumblr.views.unfollow, name='unfollow'),
     url(r'^unfollow_home/(?P<post_id>\w+)$', grumblr.views.unfollow_from_home, name='unfollow_from_home'),
 

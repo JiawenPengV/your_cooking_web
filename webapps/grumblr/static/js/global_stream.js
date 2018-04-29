@@ -2,7 +2,7 @@
 
 function addPost(){
     var postField = $("#post-field");
-    $.post("/grumblr/post", {post: postField.val()})
+    $.post("/cooking/post", {post: postField.val()})
       .done(function(data) {
           getUpdates();
           postField.val("").focus();

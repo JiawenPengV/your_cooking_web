@@ -23,6 +23,6 @@ import grumblr.views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^grumblr/',include(grumblr.urls)),
+    url(r'^cooking/',include(grumblr.urls)),
     url(r'^$', grumblr.views.home),
 ]
