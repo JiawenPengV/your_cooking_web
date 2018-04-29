@@ -119,6 +119,20 @@ def unfollow_from_search(request, post_id):
 @transaction.atomic
 def vote_from_search(request, post_id):
     post = Post.objects.get(id=post_id)
+    if post in Profile.objects.get(user = request.user).voting.all() :
+        profile = Profile.objects.get(user=request.user)
+        voting = profile.voting.all()
+        followees = profile.followees.all()
+        posts = profile.followees.all()
+        context = {'voting': voting, 'followees': followees}
+        # return redirect('/grumblr/follower_stream')
+        posts_following = profile.searching_following.all()
+        posts_not_following = profile.searching_not_following.all()
+        return render(request, 'grumblr/search_result.html',
+                      {'request_user_profile': profile, 'posts_following': posts_following,
+                       'posts_not_following': posts_not_following, 'user': request.user,
+                       'followees': followees, 'voting': voting})
+
     post.vote = post.vote + 1
     post.save()
 
@@ -141,8 +155,28 @@ def vote_from_search(request, post_id):
 @transaction.atomic
 def devote_from_search(request, post_id):
     post = Post.objects.get(id=post_id)
+
+    if post not in Profile.objects.get(user = request.user).voting.all() :
+        profile = Profile.objects.get(user=request.user)
+        profile.voting.remove(post)
+        profile.save()
+
+        voting = profile.voting.all()
+        followees = profile.followees.all()
+        posts = profile.followees.all()
+        context = {'voting': voting, 'followees': followees}
+        # return redirect('/grumblr/follower_stream')
+        posts_following = profile.searching_following.all()
+        posts_not_following = profile.searching_not_following.all()
+        return render(request, 'grumblr/search_result.html',
+                      {'request_user_profile': profile, 'posts_following': posts_following,
+                       'posts_not_following': posts_not_following, 'user': request.user,
+                       'followees': followees, 'voting': voting})
+
     post.vote = post.vote - 1
     post.save()
+
+
 
     profile = Profile.objects.get(user = request.user)
     profile.voting.remove(post)
@@ -163,7 +197,13 @@ def devote_from_search(request, post_id):
 
 @transaction.atomic
 def vote_from_follower(request, post_id):
+
+
     post = Post.objects.get(id=post_id)
+
+    if post in Profile.objects.get(user = request.user).voting.all() :
+
+        return redirect('/cooking/favorites')
     post.vote = post.vote + 1
     post.save()
 
@@ -175,12 +215,12 @@ def vote_from_follower(request, post_id):
     followees = profile.followees.all()
     posts = profile.followees.all()
     context = {'voting': voting, 'followees' : followees}
-    # return redirect('/grumblr/follower_stream')
+    return redirect('/cooking/favorites')
 
 
-    return render(request, 'grumblr/follower_stream.html',
-                  {'request_user_profile': profile, 'posts': posts, 'user': request.user,
-                   'followees': followees,'voting': voting})
+    # return render(request, 'grumblr/follower_stream.html',
+    #               {'request_user_profile': profile, 'posts': posts, 'user': request.user,
+    #                'followees': followees,'voting': voting})
 
 
 @transaction.atomic
@@ -198,9 +238,7 @@ def devote_from_follower(request, post_id):
     posts = profile.followees.all()
     context = {'voting': voting, 'followees': followees}
     # return redirect('/grumblr/follower_stream')
-    return render(request, 'grumblr/follower_stream.html',
-                  {'request_user_profile': profile, 'posts': posts, 'user': request.user,
-                   'followees': followees, 'voting': voting})
+    return redirect('/cooking/favorites')
 
 @transaction.atomic
 def vote(request, post_id):
@@ -217,9 +255,11 @@ def vote(request, post_id):
     posts = Post.objects.all().order_by("-time")
     context = {'voting': voting, 'followees' : followees}
 
-    return render(request, 'grumblr/global_stream.html',
-                  {'request_user_profile': profile, 'posts': posts, 'user': request.user,
-                   'followees': followees,'voting': voting})
+    return redirect('/')
+
+    # return render(request, 'grumblr/global_stream.html',
+    #               {'request_user_profile': profile, 'posts': posts, 'user': request.user,
+    #                'followees': followees,'voting': voting})
 
 
 @transaction.atomic
@@ -468,7 +508,7 @@ def unfollow(request, post_id):
 
 
     context = {'followees': followees, 'request_user_profile': profile}
-    return redirect('/grumblr/follower_stream')
+    return redirect('/cooking/favorites')
 
 
 @login_required
@@ -483,11 +523,12 @@ def unfollow_from_home(request, post_id):
 
     followees = profile.followees.all()
     request_user_profile = Profile.objects.get(user=request.user)
-    posts = request_user_profile.followees.all()
+    posts = Post.objects.all().order_by('-time')
     request_user_followees = request_user_profile.followees.all()
-    return render(request, 'grumblr/follower_stream.html',
-                  {'followees': request_user_followees, 'posts': posts, 'user': request.user,
-                   'request_user_profile': request_user_profile})
+    return redirect('/cooking/favorites')
+    # return render(request, 'grumblr/global_stream.html',
+    #               {'followees': request_user_followees, 'posts': posts, 'user': request.user,
+    #                'request_user_profile': request_user_profile})
 
 
 @login_required
@@ -498,7 +539,8 @@ def follower_stream(request):
     request_user_profile = Profile.objects.get(user=request.user)
     posts = request_user_profile.followees.all()
     request_user_followees = request_user_profile.followees.all()
-    return render(request, 'grumblr/follower_stream.html', {'followees' : request_user_followees,'posts' : posts, 'user' : request.user, 'request_user_profile': request_user_profile})
+    voting = request_user_profile.voting.all()
+    return render(request, 'grumblr/follower_stream.html', {'voting' : voting,'followees' : request_user_followees,'posts' : posts, 'user' : request.user, 'request_user_profile': request_user_profile})
 
 
 @login_required()
