@@ -1,6 +1,6 @@
 {% extends "grumblr/base.html" %}
 {% load static %}
-{% block title %}Grumblr Profile{% endblock %}
+{% block title %}Dash Board{% endblock %}
 {% block css %}
 {#<link href="{% static 'css/profile.css' %}" rel="stylesheet">#}
 
@@ -63,7 +63,7 @@
 						<p> {{profile.bio}} </p>
                         <h3> you have {{post_number}} posts</h3>
                         <h3> you have {{vote_number}} votes</h3>
-                        <h3> you have {{follow_number}} following</h3>
+                        <h3> you have {{follow_number}} favorite</h3>
 
 
 						{% if user == request.user %}
@@ -96,32 +96,26 @@
                             class='post_content'>{{ post.content }}</div></span>
 
 
-
-                        {% ifequal username post.user.username %}
-                            <form method='post' action={% url 'delete' post.id %}>
-                            <span> <input type='submit' class='btn btn-xs btn-danger delete-btn'
-                                          value='Delete'></span>{% endifequal %}{% csrf_token %}</form>
-
-                        {% if post in followees %}
-					<a class="btn btn-warning btn-unfollow" href="{% url 'unfollow_from_home' post.id %}">unfaviriot</a>
-					{% else %}
-					<a class="btn btn-success btn-follow" href="{% url 'follow' post.id %}">Favoriate</a>
-					{% endif %}
-
-                    {% if not post in voting %}
-                    <a class="btn btn-warning btn-unfollow" href="{% url 'vote' post.id %}">{{ post.vote }}</a>
-                    {% else %}
-					<a class="btn btn-success btn-follow" href="{% url 'devote' post.id %}">{{ post.vote }}</a>
-					{% endif %}
-                     <form enctype="multipart/form-data" class="navbar-form navbar-right" method="post"
-                          action="{% url 'add_tag' post.id %}">
-
-                        <div class="form-group">
-                            <input type="text" placeholder="add tag" name="tag" value="" class="form-control">
-                        </div>
-                        <button type="submit" class="btn btn-success">add tag</button>
-                        {% csrf_token %}
-                    </form>
+{#                        {% if post in followees %}#}
+{#					<a class="btn btn-warning btn-unfollow" href="{% url 'unfollow_from_home' post.id %}">unfaviriot</a>#}
+{#					{% else %}#}
+{#					<a class="btn btn-success btn-follow" href="{% url 'follow' post.id %}">Favoriate</a>#}
+{#					{% endif %}#}
+{##}
+{#                    {% if not post in voting %}#}
+{#                    <a class="btn btn-warning btn-unfollow" href="{% url 'vote' post.id %}">{{ post.vote }}</a>#}
+{#                    {% else %}#}
+{#					<a class="btn btn-success btn-follow" href="{% url 'devote' post.id %}">{{ post.vote }}</a>#}
+{#					{% endif %}#}
+{#                     <form enctype="multipart/form-data" class="navbar-form navbar-right" method="post"#}
+{#                          action="{% url 'add_tag' post.id %}">#}
+{##}
+{#                        <div class="form-group">#}
+{#                            <input type="text" placeholder="add tag" name="tag" value="" class="form-control">#}
+{#                        </div>#}
+{#                        <button type="submit" class="btn btn-success">add tag</button>#}
+{#                        {% csrf_token %}#}
+{#                    </form>#}
                     </div>
 
 

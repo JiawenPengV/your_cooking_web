@@ -68,15 +68,15 @@ def follow_from_search(request, post_id):
         raise Http404
     post = Post.objects.get(id=post_id)
 
-    profile.followees.add(post);
+    profile.followees.add(post)
     profile.save()
 
     followees = profile.followees.all()
     voting = profile.voting.all()
     context = {'followees': followees, 'request_user_profile': profile}
 
-    posts_following = profile.searching_following.all()
-    posts_not_following = profile.searching_not_following.all()
+    posts_following = profile.searching_following.all().order_by('-vote','-time')
+    posts_not_following = profile.searching_not_following.all().order_by('-vote','-time')
 
     list_follow = list(posts_following)
     list_not_follow = list(posts_not_following)
@@ -84,9 +84,17 @@ def follow_from_search(request, post_id):
     list_follow.append(post)
     list_not_follow.remove(post)
 
+    profile.searching_following = list_follow
+    profile.searching_not_following = list_not_follow
+
+    profile.save()
+
+    posts_following = profile.searching_following.all().order_by('-vote', '-time')
+    posts_not_following = profile.searching_not_following.all().order_by('-vote', '-time')
+
     return render(request, 'grumblr/search_result.html',
-                  {'request_user_profile': profile, 'posts_following': list_follow,
-                   'posts_not_following': list_not_follow, 'user': request.user,
+                  {'request_user_profile': profile, 'posts_following': posts_following,
+                   'posts_not_following': posts_not_following, 'user': request.user,
                    'followees': followees, 'voting': voting})
 
 @login_required
@@ -103,17 +111,28 @@ def unfollow_from_search(request, post_id):
     voting = profile.voting.all()
     context = {'followees': followees, 'request_user_profile': profile}
 
-    posts_following = profile.searching_following.all()
-    posts_not_following = profile.searching_not_following.all()
+    posts_following = profile.searching_following.all().order_by('-vote','-time')
+    posts_not_following = profile.searching_not_following.all().order_by('-vote','-time')
+
     list_follow = list(posts_following)
     list_not_follow = list(posts_not_following)
+    try:
+        list_follow.remove(post)
+        list_not_follow.append(post)
+    except ObjectDoesNotExist:
+        raise Http404
 
-    list_follow.remove(post)
-    list_not_follow.append(post)
+    profile.searching_following = list_follow
+    profile.searching_not_following = list_not_follow
+
+    profile.save()
+
+    posts_following = profile.searching_following.all().order_by('-vote', '-time')
+    posts_not_following = profile.searching_not_following.all().order_by('-vote', '-time')
 
     return render(request, 'grumblr/search_result.html',
-                  {'request_user_profile': profile, 'posts_following': list_follow,
-                   'posts_not_following': list_not_follow, 'user': request.user,
+                  {'request_user_profile': profile, 'posts_following': posts_following,
+                   'posts_not_following': posts_not_following, 'user': request.user,
                    'followees': followees, 'voting': voting})
 
 @transaction.atomic
@@ -126,8 +145,8 @@ def vote_from_search(request, post_id):
         posts = profile.followees.all()
         context = {'voting': voting, 'followees': followees}
         # return redirect('/grumblr/follower_stream')
-        posts_following = profile.searching_following.all()
-        posts_not_following = profile.searching_not_following.all()
+        posts_following = profile.searching_following.all().order_by('-vote','-time')
+        posts_not_following = profile.searching_not_following.all().order_by('-vote','-time')
         return render(request, 'grumblr/search_result.html',
                       {'request_user_profile': profile, 'posts_following': posts_following,
                        'posts_not_following': posts_not_following, 'user': request.user,
@@ -144,9 +163,14 @@ def vote_from_search(request, post_id):
     followees = profile.followees.all()
     posts = profile.followees.all()
     context = {'voting': voting, 'followees' : followees}
+
+    profile.searching_following = profile.searching_following.all().order_by('-vote')
+    profile.searching_not_following = profile.searching_not_following.all().order_by('-vote')
+
+    profile.save()
     # return redirect('/grumblr/follower_stream')
-    posts_following = profile.searching_following.all()
-    posts_not_following = profile.searching_not_following.all()
+    posts_following = profile.searching_following.all().order_by('-vote','-time')
+    posts_not_following = profile.searching_not_following.all().order_by('-vote','-time')
     return render(request, 'grumblr/search_result.html',
                   {'request_user_profile': profile, 'posts_following': posts_following,
                    'posts_not_following': posts_not_following, 'user': request.user,
@@ -165,7 +189,9 @@ def devote_from_search(request, post_id):
         followees = profile.followees.all()
         posts = profile.followees.all()
         context = {'voting': voting, 'followees': followees}
-        # return redirect('/grumblr/follower_stream')
+
+
+
         posts_following = profile.searching_following.all()
         posts_not_following = profile.searching_not_following.all()
         return render(request, 'grumblr/search_result.html',
@@ -182,15 +208,21 @@ def devote_from_search(request, post_id):
     profile.voting.remove(post)
     profile.save()
 
-    voting=profile.voting.all()
+    voting = profile.voting.all()
     followees = profile.followees.all()
     posts = profile.followees.all()
     context = {'voting': voting, 'followees': followees}
+
+    profile.searching_following = profile.searching_following.all().order_by('-vote')
+    profile.searching_not_following = profile.searching_not_following.all().order_by('-vote')
+
+    profile.save()
     # return redirect('/grumblr/follower_stream')
-    posts_following = profile.searching_following.all()
-    posts_not_following = profile.searching_not_following.all()
+    posts_following = profile.searching_following.all().order_by('-vote', '-time')
+    posts_not_following = profile.searching_not_following.all().order_by('-vote', '-time')
     return render(request, 'grumblr/search_result.html',
-                  {'request_user_profile': profile, 'posts_following': posts_following,'posts_not_following': posts_not_following, 'user': request.user,
+                  {'request_user_profile': profile, 'posts_following': posts_following,
+                   'posts_not_following': posts_not_following, 'user': request.user,
                    'followees': followees, 'voting': voting})
 
 
@@ -332,8 +364,8 @@ def search(request):
         raise Http404
 
 
-    profile.searching_following = posts_following
-    profile.searching_not_following = posts_not_following
+    profile.searching_following = posts_following.order_by('-vote','-time')
+    profile.searching_not_following = posts_not_following.order_by('-vote','-time')
     profile.save()
     followees = profile.followees.all()
     voting = profile.voting.all()
@@ -466,7 +498,7 @@ def profile(request, username):
 
 
 @login_required
-def follow(request, post_id):
+def follow_from_home(request, post_id):
     try:
         post = Post.objects.get(id=post_id)
     except ObjectDoesNotExist:
@@ -491,7 +523,7 @@ def follow(request, post_id):
     return redirect('/')
 
 @login_required
-def unfollow(request, post_id):
+def unfollow_from_follow(request, post_id):
 
 
     try:
@@ -525,7 +557,8 @@ def unfollow_from_home(request, post_id):
     request_user_profile = Profile.objects.get(user=request.user)
     posts = Post.objects.all().order_by('-time')
     request_user_followees = request_user_profile.followees.all()
-    return redirect('/cooking/favorites')
+    # return redirect('/cooking/favorites')
+    return redirect('/')
     # return render(request, 'grumblr/global_stream.html',
     #               {'followees': request_user_followees, 'posts': posts, 'user': request.user,
     #                'request_user_profile': request_user_profile})
@@ -537,7 +570,7 @@ def follower_stream(request):
 
     # posts = Post.objects.filter(user__in=followees).order_by("-time")
     request_user_profile = Profile.objects.get(user=request.user)
-    posts = request_user_profile.followees.all()
+    posts = request_user_profile.followees.all().order_by('-time')
     request_user_followees = request_user_profile.followees.all()
     voting = request_user_profile.voting.all()
     return render(request, 'grumblr/follower_stream.html', {'voting' : voting,'followees' : request_user_followees,'posts' : posts, 'user' : request.user, 'request_user_profile': request_user_profile})
