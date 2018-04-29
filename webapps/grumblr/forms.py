@@ -37,7 +37,7 @@ class SearchForm(forms.Form):
         return cleaned_data
 
 class PostForm(forms.Form):
-    post = forms.CharField(max_length = 500000,strip=False, widget=forms.Textarea)
+    post = forms.CharField(max_length = 500000)
 
     def clean(self):
         cleaned_data = super(PostForm, self).clean()

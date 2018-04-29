@@ -78,7 +78,7 @@
                         {% if post in followees %}
 					<a class="btn btn-warning btn-unfollow" href="{% url 'unfollow_from_home' post.id %}">Delete from Favorites</a>
 					{% else %}
-					<a class="btn btn-success btn-follow" href="{% url 'follow' post.id %}">Add to Favorites</a>
+					<a class="btn btn-success btn-follow" href="{% url 'follow_from_home' post.id %}">Add to Favorites</a>
 					{% endif %}
 
                     {% if not post in voting %}
@@ -102,9 +102,25 @@
                 {% endfor %}
 
 	  </div><!--/.col-xs-12.col-sm-9-->
- <div class="col-xs-6 col-sm-4 sidebar-offcanvas" id="sidebar">
- 	<span><a class="btn btn-primary" href="{% url 'follower_stream' %}" role="button">Favorites</a></span>
- </div>
+
+
+
+     <div class="col-xs-6 col-sm-4 sidebar-offcanvas" id="sidebar">
+                <span><a class="btn btn-primary" href="{% url 'follower_stream' %}"
+                         role="button">Favorites</a></span>
+                <div id="navbar" class="navbar-collapse collapse">
+                    <form enctype="multipart/form-data" class="navbar-form navbar-right" method="post"
+                          action="{% url 'search' %}">
+
+                        <div class="form-group">
+                            <input type="text" placeholder="search for" name="key" value="" class="form-control">
+                        </div>
+                        <button type="submit" class="btn btn-success">search</button>
+                        {% csrf_token %}
+                    </form>
+                </div><!--/.navbar-collapse -->
+
+            </div>
 
   </div><!--/row-->
 

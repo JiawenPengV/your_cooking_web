@@ -18,7 +18,7 @@ class Tag(models.Model):
 
 class Post(models.Model):
     user = models.ForeignKey(User)
-    content = models.CharField(max_length=42)
+    content = models.CharField(max_length=42,blank=False)
     
     time = models.DateTimeField(auto_now_add=True)
     last_changed = models.DateTimeField(auto_now=True)

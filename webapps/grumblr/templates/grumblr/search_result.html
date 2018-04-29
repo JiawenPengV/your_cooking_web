@@ -81,6 +81,15 @@
                     {% else %}
 					<a class="btn btn-success btn-follow" href="{% url 'devote_from_search' post.id %}">{{ post.vote }}</a>
 					{% endif %}
+                     <form enctype="multipart/form-data" class="navbar-form navbar-right" method="post"
+                          action="{% url 'add_tag_from_search' post.id %}">
+
+                        <div class="form-group">
+                            <input type="text" placeholder="add tag" name="tag" value="" class="form-control">
+                        </div>
+                        <button type="submit" class="btn btn-success">add tag</button>
+                        {% csrf_token %}
+                    </form>
                     </div>
 
                 {% endfor %}
@@ -111,6 +120,15 @@
                     {% else %}
 					<a class="btn btn-success btn-follow" href="{% url 'devote_from_search' post.id %}">{{ post.vote }}</a>
 					{% endif %}
+                        <form enctype="multipart/form-data" class="navbar-form navbar-right" method="post"
+                          action="{% url 'add_tag_from_search' post.id %}">
+
+                        <div class="form-group">
+                            <input type="text" placeholder="add tag" name="tag" value="" class="form-control">
+                        </div>
+                        <button type="submit" class="btn btn-success">add tag</button>
+                        {% csrf_token %}
+                    </form>
                     </div>
 
                 {% endfor %}

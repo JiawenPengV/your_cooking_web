@@ -33,6 +33,7 @@ else:
 
 nltk.download('punkt')
 nltk.download('averaged_perceptron_tagger')
+
 @login_required
 def add_tag(request, post_id):
     context = {}
@@ -58,6 +59,70 @@ def add_tag(request, post_id):
     return render(request, 'grumblr/global_stream.html',
                   {'request_user_profile': request_user_profile, 'posts': posts, 'user': request.user,
                    'followees': followees, 'voting': voting})
+
+
+
+@login_required
+def add_tag_from_follow(request, post_id):
+    context = {}
+    form = TagForm(request.POST)
+    context['form'] = form
+    tag = form['tag'].value()
+
+    post = Post.objects.get(id=post_id)
+    new_tag = Tag.objects.create(content=tag)
+    new_tag.save()
+    post.tags.add(new_tag)
+    post.save()
+
+    posts = Post.objects.all().order_by("-time")
+    try:
+        profile = Profile.objects.get(user=request.user)
+    except ObjectDoesNotExist:
+        raise Http404
+
+    followees = profile.followees.all()
+    voting = profile.voting.all()
+    request_user_profile = Profile.objects.get(user=request.user)
+    request_user_profile = Profile.objects.get(user=request.user)
+    posts = request_user_profile.followees.all().order_by('-time')
+    request_user_followees = request_user_profile.followees.all()
+    voting = request_user_profile.voting.all()
+    return render(request, 'grumblr/follower_stream.html',
+                  {'voting': voting, 'followees': request_user_followees, 'posts': posts, 'user': request.user,
+                   'request_user_profile': request_user_profile})
+
+
+@login_required
+def add_tag_from_search(request, post_id):
+    context = {}
+    form = TagForm(request.POST)
+    context['form'] = form
+    tag = form['tag'].value()
+
+    post = Post.objects.get(id=post_id)
+    new_tag = Tag.objects.create(content=tag)
+    new_tag.save()
+    post.tags.add(new_tag)
+    post.save()
+
+    posts = Post.objects.all().order_by("-time")
+    try:
+        profile = Profile.objects.get(user=request.user)
+    except ObjectDoesNotExist:
+        raise Http404
+
+    followees = profile.followees.all()
+    voting = profile.voting.all()
+    request_user_profile = Profile.objects.get(user=request.user)
+    posts_following = profile.searching_following.all().order_by('-vote','-time')
+    posts_not_following = profile.searching_not_following.all().order_by('-vote','-time')
+
+    return render(request, 'grumblr/search_result.html',
+                  {'request_user_profile': request_user_profile, 'posts_following': posts_following,
+                   'posts_not_following': posts_not_following, 'user': request.user,
+                   'followees': followees, 'voting': voting})
+
 
 
 @login_required
@@ -135,6 +200,8 @@ def unfollow_from_search(request, post_id):
                    'posts_not_following': posts_not_following, 'user': request.user,
                    'followees': followees, 'voting': voting})
 
+
+@login_required
 @transaction.atomic
 def vote_from_search(request, post_id):
     post = Post.objects.get(id=post_id)
@@ -176,6 +243,7 @@ def vote_from_search(request, post_id):
                    'posts_not_following': posts_not_following, 'user': request.user,
                    'followees': followees, 'voting': voting})
 
+@login_required
 @transaction.atomic
 def devote_from_search(request, post_id):
     post = Post.objects.get(id=post_id)
@@ -227,6 +295,7 @@ def devote_from_search(request, post_id):
 
 
 
+@login_required
 @transaction.atomic
 def vote_from_follower(request, post_id):
 
@@ -255,6 +324,7 @@ def vote_from_follower(request, post_id):
     #                'followees': followees,'voting': voting})
 
 
+@login_required
 @transaction.atomic
 def devote_from_follower(request, post_id):
     post = Post.objects.get(id=post_id)
@@ -272,6 +342,7 @@ def devote_from_follower(request, post_id):
     # return redirect('/grumblr/follower_stream')
     return redirect('/cooking/favorites')
 
+@login_required
 @transaction.atomic
 def vote(request, post_id):
     post = Post.objects.get(id=post_id)
@@ -294,6 +365,7 @@ def vote(request, post_id):
     #                'followees': followees,'voting': voting})
 
 
+@login_required
 @transaction.atomic
 def devote(request, post_id):
     post = Post.objects.get(id=post_id)
@@ -313,6 +385,7 @@ def devote(request, post_id):
 
 
 
+@login_required
 @transaction.atomic
 def search(request):
     context = {}
@@ -397,7 +470,7 @@ def get_changes_profile(request, username, time="1970-01-01T00:00+00:00"):
 def home(request):
     if not request.user.is_authenticated:
         posts = Post.objects.all().order_by("-time")
-        return  render(request, 'grumblr/global_stream_anno.html', {'user' : request.user, 'posts' : posts})
+        return  render(request, 'grumblr/global_stream_anno.html', {'user' : request.user, 'posts' : posts,'voting':[],'followee':[]})
 
     posts = Post.objects.all().order_by("-time")
     try:
