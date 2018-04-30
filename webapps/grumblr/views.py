@@ -267,9 +267,10 @@ def follow_from_profile(request, post_id):
 
     list_follow = list(posts_following)
     list_not_follow = list(posts_not_following)
+    if post in list_not_follow :
+        list_follow.append(post)
+        list_not_follow.remove(post)
 
-    list_follow.append(post)
-    list_not_follow.remove(post)
 
     profile.searching_following = list_follow
     profile.searching_not_following = list_not_follow
@@ -332,11 +333,11 @@ def unfollow_from_profile(request, post_id):
 
     list_follow = list(posts_following)
     list_not_follow = list(posts_not_following)
-    try:
+
+    if post in list_follow :
         list_follow.remove(post)
         list_not_follow.append(post)
-    except ObjectDoesNotExist:
-        raise Http404
+
 
     profile.searching_following = list_follow
     profile.searching_not_following = list_not_follow
