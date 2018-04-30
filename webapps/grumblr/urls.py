@@ -69,4 +69,12 @@ urlpatterns = [
     url(r'^add_tag_from_follow/(?P<post_id>.+)/?$', grumblr.views.add_tag_from_follow, name='add_tag_from_follow'),
 
     url(r'^add_tag_from_search/(?P<post_id>.+)/?$', grumblr.views.add_tag_from_search, name='add_tag_from_search'),
+    url(r'^add_tag_from_profile/(?P<post_id>.+)/?$', grumblr.views.add_tag_from_profile, name='add_tag_from_profile'),
+
+    url(r'^follow_from_profile/(?P<post_id>.+)/?$', grumblr.views.follow_from_profile, name='follow_from_profile'),
+    url(r'^unfollow_from_profile/(?P<post_id>.+)/?$', grumblr.views.unfollow_from_profile, name='unfollow_from_profile'),
+
+    url(r'^vote_from_profile/(?P<post_id>.+)/?$', grumblr.views.vote_from_profile, name='vote_from_profile'),
+    url(r'^devote_from_profile/(?P<post_id>.+)/?$', grumblr.views.devote_from_profile, name='devote_from_profile'),
+
 ]

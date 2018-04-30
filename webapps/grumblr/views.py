@@ -124,6 +124,52 @@ def add_tag_from_search(request, post_id):
                    'followees': followees, 'voting': voting})
 
 
+@login_required
+def add_tag_from_profile(request, post_id):
+    context = {}
+    form = TagForm(request.POST)
+    context['form'] = form
+    tag = form['tag'].value()
+
+    post = Post.objects.get(id=post_id)
+    new_tag = Tag.objects.create(content=tag)
+    new_tag.save()
+    post.tags.add(new_tag)
+    post.save()
+
+
+
+    posts = Post.objects.filter(user=request.user).order_by("-time")
+
+    try:
+        post_user_profile = Profile.objects.get(user=request.user)
+    except ObjectDoesNotExist:
+        raise Http404
+
+    followees = request.user.profile.followees.all()
+    follow_number = 0
+    for post in followees:
+        follow_number = follow_number + 1
+
+    voting = request.user.profile.voting.all()
+
+    # request_user_profile = Profile.objects.get(user=request.user)
+    # context = {'posts' : posts_of_user, 'user' : post_user, 'profile' : post_user_profile, 'followees' : followees,'request_user_profile': request_user_profile}
+    # return render(request, 'grumblr/profile.html', context)
+
+
+    request_user_profile = Profile.objects.get(user=request.user)
+    post_number = 0
+    vote_number = 0
+    for post in posts:
+        post_number = post_number + 1
+        vote_number = vote_number + post.vote
+
+    return render(request, 'grumblr/profile.html',
+                  {'profile': request_user_profile, 'follow_number': follow_number, 'post_number': post_number,
+                   'vote_number': vote_number, 'request_user_profile': request_user_profile, 'posts': posts,
+                   'user': request.user, 'followees': followees, 'voting': voting})
+
 
 @login_required
 def follow_from_search(request, post_id):
@@ -199,6 +245,141 @@ def unfollow_from_search(request, post_id):
                   {'request_user_profile': profile, 'posts_following': posts_following,
                    'posts_not_following': posts_not_following, 'user': request.user,
                    'followees': followees, 'voting': voting})
+
+
+@login_required
+def follow_from_profile(request, post_id):
+    try:
+        profile = Profile.objects.get(user=request.user)
+    except ObjectDoesNotExist:
+        raise Http404
+    post = Post.objects.get(id=post_id)
+
+    profile.followees.add(post)
+    profile.save()
+
+    followees = profile.followees.all()
+    voting = profile.voting.all()
+    context = {'followees': followees, 'request_user_profile': profile}
+
+    posts_following = profile.searching_following.all().order_by('-vote','-time')
+    posts_not_following = profile.searching_not_following.all().order_by('-vote','-time')
+
+    list_follow = list(posts_following)
+    list_not_follow = list(posts_not_following)
+
+    list_follow.append(post)
+    list_not_follow.remove(post)
+
+    profile.searching_following = list_follow
+    profile.searching_not_following = list_not_follow
+
+    profile.save()
+
+    posts_following = profile.searching_following.all().order_by('-vote', '-time')
+    posts_not_following = profile.searching_not_following.all().order_by('-vote', '-time')
+
+
+    posts = Post.objects.filter(user=request.user).order_by("-time")
+
+    try:
+        post_user_profile = Profile.objects.get(user=request.user)
+    except ObjectDoesNotExist:
+        raise Http404
+
+    followees = request.user.profile.followees.all()
+    follow_number = 0
+    for post in followees:
+        follow_number = follow_number + 1
+
+    voting = request.user.profile.voting.all()
+
+    # request_user_profile = Profile.objects.get(user=request.user)
+    # context = {'posts' : posts_of_user, 'user' : post_user, 'profile' : post_user_profile, 'followees' : followees,'request_user_profile': request_user_profile}
+    # return render(request, 'grumblr/profile.html', context)
+
+
+    request_user_profile = Profile.objects.get(user=request.user)
+    post_number = 0
+    vote_number = 0
+    for post in posts:
+        post_number = post_number + 1
+        vote_number = vote_number + post.vote
+
+    return render(request, 'grumblr/profile.html',
+                  {'profile': request_user_profile, 'follow_number': follow_number, 'post_number': post_number,
+                   'vote_number': vote_number, 'request_user_profile': request_user_profile, 'posts': posts,
+                   'user': request.user, 'followees': followees, 'voting': voting})
+
+
+
+@login_required
+def unfollow_from_profile(request, post_id):
+    try:
+        profile = Profile.objects.get(user=request.user)
+    except ObjectDoesNotExist:
+        raise Http404
+    post = Post.objects.get(id=post_id)
+    profile.followees.remove(post);
+    profile.save()
+
+    followees = profile.followees.all()
+    voting = profile.voting.all()
+    context = {'followees': followees, 'request_user_profile': profile}
+
+    posts_following = profile.searching_following.all().order_by('-vote','-time')
+    posts_not_following = profile.searching_not_following.all().order_by('-vote','-time')
+
+    list_follow = list(posts_following)
+    list_not_follow = list(posts_not_following)
+    try:
+        list_follow.remove(post)
+        list_not_follow.append(post)
+    except ObjectDoesNotExist:
+        raise Http404
+
+    profile.searching_following = list_follow
+    profile.searching_not_following = list_not_follow
+
+    profile.save()
+
+    posts_following = profile.searching_following.all().order_by('-vote', '-time')
+    posts_not_following = profile.searching_not_following.all().order_by('-vote', '-time')
+
+
+    posts = Post.objects.filter(user=request.user).order_by("-time")
+
+    try:
+        post_user_profile = Profile.objects.get(user=request.user)
+    except ObjectDoesNotExist:
+        raise Http404
+
+    followees = request.user.profile.followees.all()
+    follow_number = 0
+    for post in followees:
+        follow_number = follow_number + 1
+
+    voting = request.user.profile.voting.all()
+
+    # request_user_profile = Profile.objects.get(user=request.user)
+    # context = {'posts' : posts_of_user, 'user' : post_user, 'profile' : post_user_profile, 'followees' : followees,'request_user_profile': request_user_profile}
+    # return render(request, 'grumblr/profile.html', context)
+
+
+    request_user_profile = Profile.objects.get(user=request.user)
+    post_number = 0
+    vote_number = 0
+    for post in posts:
+        post_number = post_number + 1
+        vote_number = vote_number + post.vote
+
+    return render(request, 'grumblr/profile.html',
+                  {'profile': request_user_profile, 'follow_number': follow_number, 'post_number': post_number,
+                   'vote_number': vote_number, 'request_user_profile': request_user_profile, 'posts': posts,
+                   'user': request.user, 'followees': followees, 'voting': voting})
+
+
+
 
 
 @login_required
@@ -292,6 +473,153 @@ def devote_from_search(request, post_id):
                   {'request_user_profile': profile, 'posts_following': posts_following,
                    'posts_not_following': posts_not_following, 'user': request.user,
                    'followees': followees, 'voting': voting})
+
+@login_required
+def vote_from_profile(request, post_id):
+    post = Post.objects.get(id=post_id)
+    if post in Profile.objects.get(user = request.user).voting.all() :
+        profile = Profile.objects.get(user=request.user)
+        voting = profile.voting.all()
+        followees = profile.followees.all()
+        posts = profile.followees.all()
+        context = {'voting': voting, 'followees': followees}
+        # return redirect('/grumblr/follower_stream')
+        posts_following = profile.searching_following.all().order_by('-vote','-time')
+        posts_not_following = profile.searching_not_following.all().order_by('-vote','-time')
+        return render(request, 'grumblr/search_result.html',
+                      {'request_user_profile': profile, 'posts_following': posts_following,
+                       'posts_not_following': posts_not_following, 'user': request.user,
+                       'followees': followees, 'voting': voting})
+
+    post.vote = post.vote + 1
+    post.save()
+
+    profile = Profile.objects.get(user = request.user)
+    profile.voting.add(post)
+    profile.save()
+
+    voting=profile.voting.all()
+    followees = profile.followees.all()
+    posts = profile.followees.all()
+    context = {'voting': voting, 'followees' : followees}
+
+    profile.searching_following = profile.searching_following.all().order_by('-vote')
+    profile.searching_not_following = profile.searching_not_following.all().order_by('-vote')
+
+    profile.save()
+    # return redirect('/grumblr/follower_stream')
+    posts_following = profile.searching_following.all().order_by('-vote','-time')
+    posts_not_following = profile.searching_not_following.all().order_by('-vote','-time')
+
+    posts = Post.objects.filter(user=request.user).order_by("-time")
+
+    try:
+        post_user_profile = Profile.objects.get(user=request.user)
+    except ObjectDoesNotExist:
+        raise Http404
+
+    followees = request.user.profile.followees.all()
+    follow_number = 0
+    for post in followees:
+        follow_number = follow_number + 1
+
+    voting = request.user.profile.voting.all()
+
+    # request_user_profile = Profile.objects.get(user=request.user)
+    # context = {'posts' : posts_of_user, 'user' : post_user, 'profile' : post_user_profile, 'followees' : followees,'request_user_profile': request_user_profile}
+    # return render(request, 'grumblr/profile.html', context)
+
+
+    request_user_profile = Profile.objects.get(user=request.user)
+    post_number = 0
+    vote_number = 0
+    for post in posts:
+        post_number = post_number + 1
+        vote_number = vote_number + post.vote
+
+    return render(request, 'grumblr/profile.html',
+                  {'profile': request_user_profile, 'follow_number': follow_number, 'post_number': post_number,
+                   'vote_number': vote_number, 'request_user_profile': request_user_profile, 'posts': posts,
+                   'user': request.user, 'followees': followees, 'voting': voting})
+
+
+@login_required
+@transaction.atomic
+def devote_from_profile(request, post_id):
+    post = Post.objects.get(id=post_id)
+
+    if post not in Profile.objects.get(user = request.user).voting.all() :
+        profile = Profile.objects.get(user=request.user)
+        profile.voting.remove(post)
+        profile.save()
+
+        voting = profile.voting.all()
+        followees = profile.followees.all()
+        posts = profile.followees.all()
+        context = {'voting': voting, 'followees': followees}
+
+
+
+        posts_following = profile.searching_following.all()
+        posts_not_following = profile.searching_not_following.all()
+        return render(request, 'grumblr/search_result.html',
+                      {'request_user_profile': profile, 'posts_following': posts_following,
+                       'posts_not_following': posts_not_following, 'user': request.user,
+                       'followees': followees, 'voting': voting})
+
+    post.vote = post.vote - 1
+    post.save()
+
+
+
+    profile = Profile.objects.get(user = request.user)
+    profile.voting.remove(post)
+    profile.save()
+
+    voting = profile.voting.all()
+    followees = profile.followees.all()
+    posts = profile.followees.all()
+    context = {'voting': voting, 'followees': followees}
+
+    profile.searching_following = profile.searching_following.all().order_by('-vote')
+    profile.searching_not_following = profile.searching_not_following.all().order_by('-vote')
+
+    profile.save()
+    # return redirect('/grumblr/follower_stream')
+    posts_following = profile.searching_following.all().order_by('-vote', '-time')
+    posts_not_following = profile.searching_not_following.all().order_by('-vote', '-time')
+
+    posts = Post.objects.filter(user=request.user).order_by("-time")
+
+    try:
+        post_user_profile = Profile.objects.get(user=request.user)
+    except ObjectDoesNotExist:
+        raise Http404
+
+    followees = request.user.profile.followees.all()
+    follow_number = 0
+    for post in followees:
+        follow_number = follow_number + 1
+
+    voting = request.user.profile.voting.all()
+
+    # request_user_profile = Profile.objects.get(user=request.user)
+    # context = {'posts' : posts_of_user, 'user' : post_user, 'profile' : post_user_profile, 'followees' : followees,'request_user_profile': request_user_profile}
+    # return render(request, 'grumblr/profile.html', context)
+
+
+    request_user_profile = Profile.objects.get(user=request.user)
+    post_number = 0
+    vote_number = 0
+    for post in posts:
+        post_number = post_number + 1
+        vote_number = vote_number + post.vote
+
+    return render(request, 'grumblr/profile.html',
+                  {'profile': request_user_profile, 'follow_number': follow_number, 'post_number': post_number,
+                   'vote_number': vote_number, 'request_user_profile': request_user_profile, 'posts': posts,
+                   'user': request.user, 'followees': followees, 'voting': voting})
+
 
 
 
@@ -803,7 +1131,7 @@ def reset_password(request):
     form = EmailResetForm(request.POST)
     context['form'] = form
 
-  
+
     if not form.is_valid():
         return render(request, 'grumblr/password_reset.html', context)
     try:
