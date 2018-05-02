@@ -101,11 +101,8 @@
 					<a class="btn btn-success btn-follow" href="{% url 'follow_from_profile' post.id %}">Favoriate</a>
 					{% endif %}
 {##}
-                    {% if not post in voting %}
                     <a class="btn btn-warning btn-unfollow" href="{% url 'vote_from_profile' post.id %}">{{ post.vote }}</a>
-                    {% else %}
-					<a class="btn btn-success btn-follow" href="{% url 'devote_from_profile' post.id %}">{{ post.vote }}</a>
-					{% endif %}
+
                      <form enctype="multipart/form-data" class="navbar-form navbar-right" method="post"
                           action="{% url 'add_tag_from_profile' post.id %}">
 

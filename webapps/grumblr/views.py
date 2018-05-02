@@ -387,19 +387,7 @@ def unfollow_from_profile(request, post_id):
 @transaction.atomic
 def vote_from_search(request, post_id):
     post = Post.objects.get(id=post_id)
-    if post in Profile.objects.get(user = request.user).voting.all() :
-        profile = Profile.objects.get(user=request.user)
-        voting = profile.voting.all()
-        followees = profile.followees.all()
-        posts = profile.followees.all()
-        context = {'voting': voting, 'followees': followees}
-        # return redirect('/grumblr/follower_stream')
-        posts_following = profile.searching_following.all().order_by('-vote','-time')
-        posts_not_following = profile.searching_not_following.all().order_by('-vote','-time')
-        return render(request, 'grumblr/search_result.html',
-                      {'request_user_profile': profile, 'posts_following': posts_following,
-                       'posts_not_following': posts_not_following, 'user': request.user,
-                       'followees': followees, 'voting': voting})
+
 
     post.vote = post.vote + 1
     post.save()
@@ -425,55 +413,7 @@ def vote_from_search(request, post_id):
                    'posts_not_following': posts_not_following, 'user': request.user,
                    'followees': followees, 'voting': voting})
 
-@login_required
-@transaction.atomic
-def devote_from_search(request, post_id):
-    post = Post.objects.get(id=post_id)
 
-    if post not in Profile.objects.get(user = request.user).voting.all() :
-        profile = Profile.objects.get(user=request.user)
-        profile.voting.remove(post)
-        profile.save()
-
-        voting = profile.voting.all()
-        followees = profile.followees.all()
-        posts = profile.followees.all()
-        context = {'voting': voting, 'followees': followees}
-
-
-
-        posts_following = profile.searching_following.all()
-        posts_not_following = profile.searching_not_following.all()
-        return render(request, 'grumblr/search_result.html',
-                      {'request_user_profile': profile, 'posts_following': posts_following,
-                       'posts_not_following': posts_not_following, 'user': request.user,
-                       'followees': followees, 'voting': voting})
-
-    post.vote = post.vote - 1
-    post.save()
-
-
-
-    profile = Profile.objects.get(user = request.user)
-    profile.voting.remove(post)
-    profile.save()
-
-    voting = profile.voting.all()
-    followees = profile.followees.all()
-    posts = profile.followees.all()
-    context = {'voting': voting, 'followees': followees}
-
-    profile.searching_following = profile.searching_following.all().order_by('-vote')
-    profile.searching_not_following = profile.searching_not_following.all().order_by('-vote')
-
-    profile.save()
-    # return redirect('/grumblr/follower_stream')
-    posts_following = profile.searching_following.all().order_by('-vote', '-time')
-    posts_not_following = profile.searching_not_following.all().order_by('-vote', '-time')
-    return render(request, 'grumblr/search_result.html',
-                  {'request_user_profile': profile, 'posts_following': posts_following,
-                   'posts_not_following': posts_not_following, 'user': request.user,
-                   'followees': followees, 'voting': voting})
 
 @login_required
 def vote_from_profile(request, post_id):
@@ -544,85 +484,6 @@ def vote_from_profile(request, post_id):
                    'user': request.user, 'followees': followees, 'voting': voting})
 
 
-@login_required
-@transaction.atomic
-def devote_from_profile(request, post_id):
-    post = Post.objects.get(id=post_id)
-
-    if post not in Profile.objects.get(user = request.user).voting.all() :
-        profile = Profile.objects.get(user=request.user)
-        profile.voting.remove(post)
-        profile.save()
-
-        voting = profile.voting.all()
-        followees = profile.followees.all()
-        posts = profile.followees.all()
-        context = {'voting': voting, 'followees': followees}
-
-
-
-        posts_following = profile.searching_following.all()
-        posts_not_following = profile.searching_not_following.all()
-        return render(request, 'grumblr/search_result.html',
-                      {'request_user_profile': profile, 'posts_following': posts_following,
-                       'posts_not_following': posts_not_following, 'user': request.user,
-                       'followees': followees, 'voting': voting})
-
-    post.vote = post.vote - 1
-    post.save()
-
-
-
-    profile = Profile.objects.get(user = request.user)
-    profile.voting.remove(post)
-    profile.save()
-
-    voting = profile.voting.all()
-    followees = profile.followees.all()
-    posts = profile.followees.all()
-    context = {'voting': voting, 'followees': followees}
-
-    profile.searching_following = profile.searching_following.all().order_by('-vote')
-    profile.searching_not_following = profile.searching_not_following.all().order_by('-vote')
-
-    profile.save()
-    # return redirect('/grumblr/follower_stream')
-    posts_following = profile.searching_following.all().order_by('-vote', '-time')
-    posts_not_following = profile.searching_not_following.all().order_by('-vote', '-time')
-
-    posts = Post.objects.filter(user=request.user).order_by("-time")
-
-    try:
-        post_user_profile = Profile.objects.get(user=request.user)
-    except ObjectDoesNotExist:
-        raise Http404
-
-    followees = request.user.profile.followees.all()
-    follow_number = 0
-    for post in followees:
-        follow_number = follow_number + 1
-
-    voting = request.user.profile.voting.all()
-
-    # request_user_profile = Profile.objects.get(user=request.user)
-    # context = {'posts' : posts_of_user, 'user' : post_user, 'profile' : post_user_profile, 'followees' : followees,'request_user_profile': request_user_profile}
-    # return render(request, 'grumblr/profile.html', context)
-
-
-    request_user_profile = Profile.objects.get(user=request.user)
-    post_number = 0
-    vote_number = 0
-    for post in posts:
-        post_number = post_number + 1
-        vote_number = vote_number + post.vote
-
-    return render(request, 'grumblr/profile.html',
-                  {'profile': request_user_profile, 'follow_number': follow_number, 'post_number': post_number,
-                   'vote_number': vote_number, 'request_user_profile': request_user_profile, 'posts': posts,
-                   'user': request.user, 'followees': followees, 'voting': voting})
-
-
-
 
 @login_required
 @transaction.atomic
@@ -653,23 +514,6 @@ def vote_from_follower(request, post_id):
     #                'followees': followees,'voting': voting})
 
 
-@login_required
-@transaction.atomic
-def devote_from_follower(request, post_id):
-    post = Post.objects.get(id=post_id)
-    post.vote = post.vote - 1
-    post.save()
-
-    profile = Profile.objects.get(user = request.user)
-    profile.voting.remove(post)
-    profile.save()
-
-    voting=profile.voting.all()
-    followees = profile.followees.all()
-    posts = profile.followees.all()
-    context = {'voting': voting, 'followees': followees}
-    # return redirect('/grumblr/follower_stream')
-    return redirect('/cooking/favorites')
 
 @login_required
 @transaction.atomic
@@ -692,24 +536,6 @@ def vote(request, post_id):
     # return render(request, 'grumblr/global_stream.html',
     #               {'request_user_profile': profile, 'posts': posts, 'user': request.user,
     #                'followees': followees,'voting': voting})
-
-
-@login_required
-@transaction.atomic
-def devote(request, post_id):
-    post = Post.objects.get(id=post_id)
-    post.vote = post.vote - 1
-    post.save()
-
-    profile = Profile.objects.get(user = request.user)
-    profile.voting.remove(post)
-    profile.save()
-
-    voting=profile.voting.all()
-    followees = profile.followees.all()
-    context = {'voting': voting, 'followees': followees}
-    return redirect('/')
-
 
 
 
@@ -775,24 +601,6 @@ def search(request):
     return render(request, 'grumblr/search_result.html',
                   {'request_user_profile': request_user_profile, 'posts_following': posts_following, 'posts_not_following': posts_not_following, 'user': request.user,
                    'followees': followees,'voting' : voting})
-
-
-
-@transaction.atomic
-def get_changes_profile(request, username, time="1970-01-01T00:00+00:00"):
-    try:
-        profile_user = User.objects.get(username=username)
-        max_time = Post.get_max_time_profile(profile_user)
-        posts = Post.get_changes_profile(profile_user, time)
-    
-    except ObjectDoesNotExist:
-        raise Http404
-
-
-    
-    context = {"max_time":max_time, "posts":posts,"username":request.user.username}
-    return render(request, 'grumblr/posts.json', context, content_type='application/json')
-
 
 
 
@@ -1117,81 +925,5 @@ def register(request):
 
     return redirect('/grumblr/global_stream')
 
-@transaction.atomic
-def reset_pass(request):
-    return render(request, 'grumblr/password_reset.html')
-
-
-@transaction.atomic
-def reset_password(request):
-    context = {}
-    if request.method == 'GET':
-        context['form'] = EmailResetForm()
-        return render(request, 'grumblr/password_reset.html', context)
-
-    form = EmailResetForm(request.POST)
-    context['form'] = form
-
-
-    if not form.is_valid():
-        return render(request, 'grumblr/password_reset.html', context)
-    try:
-        user= User.objects.get(email=form.cleaned_data['email'])
-    except ObjectDoesNotExist:
-        raise Http404
-
-    token = default_token_generator.make_token(user)
-
-    email_body="""
-    Please click the link below to verify your email address
-    and complete the password resetting of your account:
-    http://%s%s
-    """ % (request.get_host(),
-           reverse('password_confirm', args=(user.username, token)))
-
-    send_mail(subject="Verify your email address",
-              message=email_body,
-              from_email="jiawenp1@andrew.cmu.edu",
-              recipient_list=[user.email])
-
-    context['email'] = form.cleaned_data['email']
-    return render(request, 'grumblr/password_reset_confirmation.html', context)
-
-
-@transaction.atomic
-def password_reset_confirmation(request, username, token):
-    context = {}
-    try:
-        user = User.objects.get(username=username)
-    except ObjectDoesNotExist:
-        raise Http404
-
-    if not default_token_generator.check_token(user, token):
-
-        return render(request, 'grumblr/error_page.html', context)
-
-    context['user'] = user
-    return render(request, 'grumblr/password_reset_form.html', context)
-
-@transaction.atomic
-def password_reset_form(request, username):
-    context = {}
-    if request.method == 'GET':
-        context['form'] = ChangePasswordForm()
-        return render(request, 'grumblr/password_reset_form.html', context)
-
-    form = ChangePasswordForm(request.POST)
-    context['form'] = form
-    if not form.is_valid():
-        return render(request, 'grumblr/password_reset_form.html', context)
-
-    try:
-        user = User.objects.get(username=username)
-    except ObjectDoesNotExist:
-        raise Http404
-    user.set_password(form.cleaned_data['password'])
-    user.save()
-
-    return redirect('/grumblr/global_stream')
 
 
