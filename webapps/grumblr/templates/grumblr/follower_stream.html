@@ -47,8 +47,8 @@
              {% for post in posts %}
                     <div class='well post-item' id='{{ post.id }}'><span>{% if post.user.profile.picture.name %}
                         <img class='crop' src={% url 'photo' post.user.username %} id='profile_picture'>{% else %}
-                        <img src={% static 'images/img.jpg' %} id='profile_picture'>{% endif %}</span><span><span><a
-                            href={% url 'profile' post.user.username %}>{{ post.user.first_name }}</a></span><span
+                        <img src={% static 'images/img.jpg' %} id='profile_picture'>{% endif %}</span><span><span>
+                           {{ post.user.first_name }} {{ post.user.last_name }}</span><span
                             class='time'>{{ post.time |date:"Y-m-d H:i" }}</span><div
                             class='post_content'>{{ post.content }}</div></span>
 
